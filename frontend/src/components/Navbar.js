@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { MenuSvg, BrandingSvg, CartSvg, CloseSvg } from './Svg';
 
@@ -98,10 +98,27 @@ const Navbar = () => {
 
   const openSlide = () => {
     setOpenSideNav(true);
+    document.body.style.overflow = 'hidden';
   };
   const closeSlide = () => {
     setOpenSideNav(false);
+    document.body.style.overflow = 'visible';
   };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        document.querySelector('.navbar').classList.add('navbar-scrolled');
+      } else {
+        document.querySelector('.navbar').classList.remove('navbar-scrolled');
+      }
+    };
+
+    document.addEventListener('scroll', handleScroll);
+    return () => {
+      document.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return (
     <div>

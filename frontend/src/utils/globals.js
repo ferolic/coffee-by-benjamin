@@ -31,7 +31,7 @@ export default createGlobalStyle`
         cursor : pointer;
     }
 
-    .menu-mobile-svg {
+    .menu-mobile-svg, .close-sv {
         cursor : pointer;
         fill : rgb(19, 19, 19);
     }
@@ -71,11 +71,6 @@ export default createGlobalStyle`
                 opacity : 1;
             }
         }
-    }
-
-    .close-svg {
-        cursor: pointer;
-        fill: rgb(19, 19, 19);
     }
 
     .mt-50{
