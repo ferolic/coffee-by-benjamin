@@ -1,6 +1,11 @@
 const MenuSvg = () => {
   return (
-    <svg width="15" height="14" fill="none" className="menu-mobile-svg">
+    <svg
+      width="15"
+      height="14"
+      fill="none"
+      className="menu-mobile-svg"
+    >
       <rect y="12" width="10" height="2" rx="1"></rect>
       <rect width="15" height="2" rx="1"></rect>
       <rect y="6" width="13" height="2" rx="1"></rect>
@@ -49,4 +54,21 @@ const CartSvg = () => {
   );
 };
 
-export { MenuSvg, BrandingSvg, CartSvg };
+const CloseSvg = () => {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 14 14"
+      fill="none"
+      className="close-svg"
+    >
+      <path
+        d="M13.4002 12.3773C13.7627 12.7485 13.7627 13.3504 13.4002 13.7216C13.0377 14.0928 12.4499 14.0928 12.0874 13.7216L7 8.5122L1.91263 13.7216C1.5501 14.0928 0.962327 14.0928 0.599798 13.7216C0.23727 13.3504 0.23727 12.7485 0.599798 12.3773L5.68717 7.16788L0.271896 1.62273C-0.0906319 1.25151 -0.0906322 0.64964 0.271896 0.278417C0.634425 -0.0928059 1.2222 -0.0928055 1.58473 0.278417L7 5.82357L12.4153 0.278417C12.7778 -0.0928053 13.3656 -0.0928059 13.7281 0.278417C14.0906 0.64964 14.0906 1.25151 13.7281 1.62273L8.31283 7.16788L13.4002 12.3773Z"
+        fill="#131313"
+      ></path>
+    </svg>
+  );
+};
+
+export { MenuSvg, BrandingSvg, CartSvg, CloseSvg };

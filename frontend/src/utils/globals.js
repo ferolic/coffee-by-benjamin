@@ -33,16 +33,10 @@ export default createGlobalStyle`
 
     .menu-mobile-svg {
         cursor : pointer;
-        z-index : 999;
         fill : rgb(19, 19, 19);
-
-        @media ${(props) => props.theme.mediaQueries.large}{
-            display : none;
-        }
     }
 
     .branding-svg {
-        z-index: 999;
         width: 152px;
         fill : rgb(19, 19, 19);
     }
@@ -77,5 +71,22 @@ export default createGlobalStyle`
                 opacity : 1;
             }
         }
+    }
+
+    .close-svg {
+        cursor: pointer;
+        fill: rgb(19, 19, 19);
+    }
+
+    .mt-50{
+        margin-top : 50px;
+    }
+
+    .mb-32{
+        margin-bottom : 32px;
+    }
+
+    .link-secondary > a {
+        color : ${(props) => props.theme.colors.linkSecondary};
     }
 `;

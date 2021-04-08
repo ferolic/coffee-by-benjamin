@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { MenuSvg, BrandingSvg, CartSvg } from './Svg';
+import { MenuSvg, BrandingSvg, CartSvg, CloseSvg } from './Svg';
 
 const Wrapper = styled.div`
   padding: 20px 25px;
@@ -50,21 +50,86 @@ const Nav = styled.a`
   }
 `;
 
-const Navbar = () => {
-  const handleScroll = () => {
-    if (window.scrollY > 20) {
-      document.querySelector('.navbar').classList.add('navbar-scrolled');
-    } else {
-      document.querySelector('.navbar').classList.remove('navbar-scrolled');
-    }
-  };
+const MenuSvgWrapper = styled.div`
+  display: ${(props) => (props.openSideNav ? 'none' : 'block')};
+  z-index: 999;
 
-  window.addEventListener('scroll', handleScroll);
+  @media ${(props) => props.theme.mediaQueries.large} {
+    display: none;
+  }
+`;
+
+const CloseSvgWrapper = styled.div`
+  display: ${(props) => (props.openSideNav ? 'block' : 'none')};
+  z-index: 999;
+
+  @media ${(props) => props.theme.mediaQueries.large} {
+    display: none;
+  }
+`;
+
+const SideNavbar = styled.div`
+  display: ${(props) => (props.openSideNav ? 'block' : 'none')};
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background: ${(props) => props.theme.colors.light};
+  padding: 20px 25px;
+  z-index: 500;
+
+  @media ${(props) => props.theme.mediaQueries.large} {
+    display: none;
+  }
+`;
+
+const SideNav = styled.a`
+  display: block;
+  font-size: 20px;
+  line-height: 16px;
+  color: ${(props) => props.theme.colors.linkPrimary};
+  font-weight: 500;
+  margin-bottom: 16px;
+`;
+
+const Navbar = () => {
+  const [openSideNav, setOpenSideNav] = useState(false);
+
+  const openSlide = () => {
+    setOpenSideNav(true);
+  };
+  const closeSlide = () => {
+    setOpenSideNav(false);
+  };
 
   return (
     <div>
       <Wrapper className="navbar">
-        <MenuSvg />
+        <MenuSvgWrapper onClick={openSlide} openSideNav={openSideNav}>
+          <MenuSvg />
+        </MenuSvgWrapper>
+
+        <CloseSvgWrapper onClick={closeSlide} openSideNav={openSideNav}>
+          <CloseSvg />
+        </CloseSvgWrapper>
+
+        <SideNavbar openSideNav={openSideNav}>
+          <div className="mt-50">
+            <div className="mb-32">
+              <SideNav href="/about"> About </SideNav>
+              <SideNav href="/shop"> Shop </SideNav>
+            </div>
+
+            <div className="link-secondary">
+              <SideNav href="/support"> Support </SideNav>
+              <SideNav href="/faq"> FAQ </SideNav>
+              <SideNav href="/privacy"> Privacy Policy </SideNav>
+              <SideNav href="/press-kit"> Press Kit </SideNav>
+            </div>
+          </div>
+        </SideNavbar>
+
         <StyledLink href="/">
           <BrandingSvg />
         </StyledLink>
