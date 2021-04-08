@@ -31,6 +31,19 @@ export default createGlobalStyle`
         cursor : pointer;
     }
 
+    h1 {
+        font-size : 2em;
+        margin : 0.67em 0;
+    }
+    
+    button {
+        font-family : --apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    img {
+        border-style : none;
+    }
+
     .menu-mobile-svg, .close-sv {
         cursor : pointer;
         fill : rgb(19, 19, 19);
@@ -83,5 +96,37 @@ export default createGlobalStyle`
 
     .link-secondary > a {
         color : ${(props) => props.theme.colors.linkSecondary};
+    }
+
+    .title {
+        font-size : 32px;
+        line-height: 46px;
+        font-weight: 800;
+        margin-top : 0;
+        margin-bottom: 32px;
+
+        @media ${(props) => props.theme.mediaQueries.large}{
+            font-size : 48px;
+            line-height: 68px;
+            max-width: 100%;
+        }
+    }
+
+    .desc {
+        font-size: 20px;
+        line-height: 32px;
+        margin : 32px 0;
+        color : ${(props) => props.theme.colors.textPrimary};
+
+        @media ${(props) => props.theme.mediaQueries.large}{
+            max-width: 90%;
+        }
+    }
+
+    .show-on-mobile {
+        display : none;
+        @media ${(props) => props.theme.mediaQueries.medium}{
+            display : block;
+        }
     }
 `;

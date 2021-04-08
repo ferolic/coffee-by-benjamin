@@ -1,11 +1,6 @@
 const MenuSvg = () => {
   return (
-    <svg
-      width="15"
-      height="14"
-      fill="none"
-      className="menu-mobile-svg"
-    >
+    <svg width="15" height="14" fill="none" className="menu-mobile-svg">
       <rect y="12" width="10" height="2" rx="1"></rect>
       <rect width="15" height="2" rx="1"></rect>
       <rect y="6" width="13" height="2" rx="1"></rect>
