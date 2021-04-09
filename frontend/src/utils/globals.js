@@ -35,13 +35,24 @@ export default createGlobalStyle`
         font-size : 2em;
         margin : 0.67em 0;
     }
-    
-    button {
-        font-family : --apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    }
 
     img {
         border-style : none;
+    }
+
+    button, select{
+        text-transform : none;
+    }
+
+    button, input {
+        overflow: visible;
+    }
+
+    button, input, optgroup, select, textarea {
+        font-family: inherit;
+        font-size: 100%;
+        line-height: 1.15;
+        margin: 0;
     }
 
     .menu-mobile-svg, .close-sv {
@@ -94,6 +105,10 @@ export default createGlobalStyle`
         margin-bottom : 32px;
     }
 
+    .mr-10 {
+        margin-right : 10px;
+    }
+    
     .link-secondary > a {
         color : ${(props) => props.theme.colors.linkSecondary};
     }
@@ -128,5 +143,11 @@ export default createGlobalStyle`
         @media ${(props) => props.theme.mediaQueries.medium}{
             display : block;
         }
+    }
+
+    .link-btn {
+        display : flex;
+        flex : 1 ;
+        justify-content : center;
     }
 `;

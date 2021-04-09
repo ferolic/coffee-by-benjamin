@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Navbar from '../components/Navbar';
 import Button from '../components/Button';
+import Coffees from './Coffees';
 
 const Wrapper = styled.div`
   display: flex;
@@ -156,6 +157,7 @@ const Home = () => {
         </Showcase>
         <ScrollIcon> </ScrollIcon>
       </Header>
+      <Coffees />
     </Wrapper>
   );
 };
