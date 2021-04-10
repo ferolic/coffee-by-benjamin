@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Navbar from '../components/Navbar';
 import Button from '../components/Button';
 import Coffees from './Coffees';
+import StarterKit from './StarterKit';
 
 const Wrapper = styled.div`
   display: flex;
@@ -47,6 +48,31 @@ const Showcase = styled.div`
     flex-direction: row;
     padding-left: 50px;
     padding-right: 50px;
+  }
+`;
+
+const ShowcaseTitle = styled.h2`
+  font-size: 32px;
+  line-height: 46px;
+  font-weight: 800;
+  margin-top: 0;
+  margin-bottom: 32px;
+
+  @media ${(props) => props.theme.mediaQueries.large} {
+    font-size: 48px;
+    line-height: 68px;
+    max-width: 100%;
+  }
+`;
+
+const ShowcaseDesc = styled.p`
+  font-size: 20px;
+  line-height: 32px;
+  margin: 32px 0;
+  color: ${(props) => props.theme.colors.textPrimary};
+
+  @media ${(props) => props.theme.mediaQueries.large} {
+    max-width: 90%;
   }
 `;
 
@@ -131,13 +157,13 @@ const Home = () => {
         <Showcase>
           <ShowcaseTextWrapper>
             <ShowcaseText>
-              <h1 className="title">
+              <ShowcaseTitle>
                 Speciality coffee made by you. This is the home roasting kit.
-              </h1>
-              <p className="desc">
+              </ShowcaseTitle>
+              <ShowcaseDesc>
                 Discover coffee like never before. We provide a complete toolkit
                 for you to start roasting at home.
-              </p>
+              </ShowcaseDesc>
               <a href="/product/1">
                 <Button text="Buy For €99" />
               </a>
@@ -158,6 +184,7 @@ const Home = () => {
         <ScrollIcon> </ScrollIcon>
       </Header>
       <Coffees />
+      <StarterKit />
     </Wrapper>
   );
 };

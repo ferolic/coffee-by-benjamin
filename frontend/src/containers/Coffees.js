@@ -24,29 +24,6 @@ const Header = styled.div`
   }
 `;
 
-const HeaderTitle = styled.h2`
-  font-size: 32px;
-  line-height: 46px;
-  font-weight: 800;
-  text-align: center;
-  margin: 0 auto 30px;
-  max-width: 700px;
-
-  @media ${(props) => props.theme.mediaQueries.large} {
-    font-size: 48px;
-    line-height: 68px;
-  }
-`;
-
-const HeaderDesc = styled.p`
-  font-size: 20px;
-  line-height: 32px;
-  text-align: center;
-  color: ${(props) => props.theme.colors.textSecondary};
-  margin: 0 auto;
-  max-width: 900px;
-`;
-
 const ProductWrapper = styled.div`
   width: 100%;
   max-width: 2100px;
@@ -105,11 +82,11 @@ const Coffees = () => {
   return (
     <Wrapper>
       <Header>
-        <HeaderTitle> Our Coffees </HeaderTitle>
-        <HeaderDesc>
+        <h2 className="title"> Our Coffees </h2>
+        <p className="desc">
           This is our selection of high quality raw coffee beans suitable for
           home roasting.
-        </HeaderDesc>
+        </p>
       </Header>
       <ProductWrapper>
         <Product

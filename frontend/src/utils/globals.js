@@ -114,28 +114,26 @@ export default createGlobalStyle`
     }
 
     .title {
-        font-size : 32px;
+        font-size: 32px;
         line-height: 46px;
         font-weight: 800;
-        margin-top : 0;
-        margin-bottom: 32px;
+        text-align: center;
+        margin: 0 auto 30px;
+        max-width: 700px;
 
-        @media ${(props) => props.theme.mediaQueries.large}{
-            font-size : 48px;
+        @media ${(props) => props.theme.mediaQueries.large} {
+            font-size: 48px;
             line-height: 68px;
-            max-width: 100%;
         }
     }
 
     .desc {
         font-size: 20px;
         line-height: 32px;
-        margin : 32px 0;
-        color : ${(props) => props.theme.colors.textPrimary};
-
-        @media ${(props) => props.theme.mediaQueries.large}{
-            max-width: 90%;
-        }
+        text-align: center;
+        color: ${(props) => props.theme.colors.textSecondary};
+        margin: 0 auto;
+        max-width: 900px;
     }
 
     .show-on-mobile {
