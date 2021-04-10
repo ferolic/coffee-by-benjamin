@@ -148,4 +148,58 @@ export default createGlobalStyle`
         flex : 1 ;
         justify-content : center;
     }
+
+    .tabs-wrapper {
+        width: 100%;
+        max-width: 2100px;
+        padding-left: 25px;
+        padding-right: 25px;
+        margin-left: auto;
+        margin-right: auto;
+
+        @media ${(props) => props.theme.mediaQueries.large} {
+            padding-left: 50px;
+            padding-right: 50px;
+        }
+    }
+
+    .styled-ol {
+        display: flex;
+        justify-content: space-around;
+        padding-left: 0px;
+    }
+
+    .styled-li {
+        display: inline-block;
+        list-style: none;
+        margin: 20px;
+        font-size: 20px;
+        line-height: 32px;
+        width: 25%;
+        padding-bottom: 10px;
+        border-bottom: 3px solid rgb(239, 239, 239);
+        position: relative;
+        font-weight: 600;
+        color: ${(props) => props.theme.colors.textSecondary};
+
+        &::after {
+            width: 100%;
+            height: 3px;
+            border-radius: 3px;
+            background-color: none;
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            display: block;
+        }
+    }
+
+
+    .styled-li.react-tabs__tab--selected{
+        color : ${(props) => props.theme.colors.textPrimary};
+        
+        &::after {
+            background-color : rgb(138, 199, 196);
+        }
+    }
 `;

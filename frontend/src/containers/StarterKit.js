@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Button from '../components/Button';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -10,6 +11,10 @@ const Wrapper = styled.div`
   background-color: ${(props) => props.theme.colors.light};
   padding: 130px 0;
 
+  @media ${(props) => props.theme.mediaQueries.medium} {
+    display: none;
+  }
+  
   @media ${(props) => props.theme.mediaQueries.large} {
     padding-left: 50px;
     padding-right: 50px;
@@ -31,65 +36,6 @@ const Header = styled.div`
   }
 `;
 
-const TabsWrapper = styled.div`
-  width: 100%;
-  max-width: 2100px;
-  padding-left: 25px;
-  padding-right: 25px;
-  margin-left: auto;
-  margin-right: auto;
-
-  @media ${(props) => props.theme.mediaQueries.large} {
-    padding-left: 50px;
-    padding-right: 50px;
-  }
-`;
-
-const StyledOl = styled.ol`
-  display: flex;
-  justify-content: space-around;
-  padding-left: 0px;
-`;
-
-const StyledLi = styled.li`
-  display: inline-block;
-  list-style: none;
-  margin: 20px;
-  font-size: 20px;
-  line-height: 32px;
-  width: 25%;
-  padding-bottom: 10px;
-  border-bottom: 3px solid rgb(239, 239, 239);
-  position: relative;
-  font-weight: 600;
-  color: ${(props) => props.theme.colors.textSecondary};
-
-  &::after {
-    width: 100%;
-    height: 3px;
-    border-radius: 3px;
-    background-color: none;
-    content: '';
-    position: absolute;
-    bottom: -3px;
-    display: block;
-  }
-`;
-
-const TabContentWrapper = styled.div`
-  position: relative;
-  height: 400px;
-  margin: 40px 0 0;
-`;
-
-const TabContent = styled.div`
-  position: absolute;
-  width: 100%;
-  opacity: 1;
-  z-index: 2;
-  transition: opacity 0.5s ease 0s;
-`;
-
 const Content = styled.div`
   width: 90%;
   margin: 0 auto;
@@ -99,6 +45,16 @@ const Content = styled.div`
   justify-content: space-between;
   -webkit-box-align: center;
   align-items: center;
+  animation: animateOpacity 1.4s;
+
+  @keyframes animateOpacity {
+    from {
+      opacity: 0.5;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 
   @media ${(props) => props.theme.mediaQueries.large} {
     width: 900px;
@@ -161,35 +117,83 @@ const StarterKit = () => {
         </p>
       </Header>
 
-      <TabsWrapper>
-        <StyledOl>
-          <StyledLi> Roasting Tray </StyledLi>
-          <StyledLi> Green Coffees </StyledLi>
-          <StyledLi> Thermometer </StyledLi>
-          <StyledLi> Mobile App </StyledLi>
-        </StyledOl>
-        <TabContentWrapper>
-          <TabContent>
-            <div>
-              <Content>
-                <ContentDesc>
-                  <Title>Specifically designed roasting tray</Title>
-                  <Desc>
-                    We have specifically designed the tray for the roast
-                    process. The metal housing is of the same material as that
-                    of a professional roaster and is perforated all-over to
-                    ensure that the air supply can evenly roast the beans.
-                  </Desc>
-                  <a href="/shop">
-                    <Button text="Shop All Products" dark />
-                  </a>
-                </ContentDesc>
-                <ContentImg src="../img/tray.jpg" />
-              </Content>
-            </div>
-          </TabContent>
-        </TabContentWrapper>
-      </TabsWrapper>
+      <Tabs className="tabs-wrapper">
+        <TabList className="styled-ol">
+          <Tab className="styled-li"> Roasting Tray </Tab>
+          <Tab className="styled-li"> Green Coffees </Tab>
+          <Tab className="styled-li"> Thermometer </Tab>
+          <Tab className="styled-li"> Mobile App </Tab>
+        </TabList>
+
+        <TabPanel>
+          <Content>
+            <ContentDesc>
+              <Title> Specifically designed roasting tray </Title>
+              <Desc>
+                We have specifically designed the tray for the roast process.
+                The metal housing is of the same material as that of a
+                professional roaster and is perforated all-over to ensure that
+                the air supply can evenly roast the beans.
+              </Desc>
+              <a href="/shop">
+                <Button text="Shop All Products" dark />
+              </a>
+            </ContentDesc>
+            <ContentImg src="../img/tray.jpg" />
+          </Content>
+        </TabPanel>
+
+        <TabPanel>
+          <Content>
+            <ContentDesc>
+              <Title> Three premium green coffees </Title>
+              <Desc>
+                Three types of the highest quality coffee beans complete the
+                package. Unroasted coffee beans from the east coast of Africa:
+                from Kenya, Tanzania, and Ethiopia.
+              </Desc>
+              <a href="/shop">
+                <Button text="Shop All Products" dark />
+              </a>
+            </ContentDesc>
+            <ContentImg src="../img/coffees.jpg" />
+          </Content>
+        </TabPanel>
+
+        <TabPanel>
+          <Content>
+            <ContentDesc>
+              <Title> Bluetooth Thermometer </Title>
+              <Desc>
+                We want to make sure that your oven indicates the right
+                temperature. Thanks to the supplied wireless Bluetooth
+                thermometer, we assure you of an optimal roast!
+              </Desc>
+              <a href="/shop">
+                <Button text="Shop All Products" dark />
+              </a>
+            </ContentDesc>
+            <ContentImg src="../img/thermometer.jpg" />
+          </Content>
+        </TabPanel>
+
+        <TabPanel>
+          <Content>
+            <ContentDesc>
+              <Title> Coffee by Benjamin application </Title>
+              <Desc>
+                Download the Coffee by Benjamin app (iOS, Android) and connect
+                your Bluetooth thermometer to keep track of the temperature,
+                time and statistics of your roast.
+              </Desc>
+              <a href="/shop">
+                <Button text="Shop All Products" dark />
+              </a>
+            </ContentDesc>
+            <ContentImg src="../img/app.jpg" />
+          </Content>
+        </TabPanel>
+      </Tabs>
     </Wrapper>
   );
 };
