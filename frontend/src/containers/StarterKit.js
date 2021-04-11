@@ -46,10 +46,10 @@ const Content = styled.div`
   -webkit-box-align: center;
   align-items: center;
   animation: animateOpacity 1.4s;
-
+  
   @keyframes animateOpacity {
     from {
-      opacity: 0.5;
+      opacity: 0.3;
     }
     to {
       opacity: 1;

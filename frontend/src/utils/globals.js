@@ -181,7 +181,8 @@ export default createGlobalStyle`
         position: relative;
         font-weight: 600;
         color: ${(props) => props.theme.colors.textSecondary};
-
+        cursor : pointer;
+        
         &::after {
             width: 100%;
             height: 3px;
@@ -201,5 +202,9 @@ export default createGlobalStyle`
         &::after {
             background-color : rgb(138, 199, 196);
         }
+    }
+
+    .overflow-hidden {
+        overflow : hidden;
     }
 `;

@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar';
 import Button from '../components/Button';
 import Coffees from './Coffees';
 import StarterKit from './StarterKit';
+import MobileStarterKit from './MobileStarterKit';
 
 const Wrapper = styled.div`
   display: flex;
@@ -185,6 +186,7 @@ const Home = () => {
       </Header>
       <Coffees />
       <StarterKit />
+      <MobileStarterKit />
     </Wrapper>
   );
 };
