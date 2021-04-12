@@ -79,6 +79,11 @@ export default createGlobalStyle`
         opacity: 0.6;
     }
 
+    .footer-svg-icon {
+        fill : rgb(24, 24, 24);
+        cursor : pointer;
+    }
+
     .navbar-scrolled {
         animation : 0.5s ease 0s 1 normal none running animateNavbar;
         box-shadow: rgb(0 0 0 / 12%) 0 2px 8px;

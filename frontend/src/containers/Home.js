@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import Navbar from '../components/Navbar';
 import Button from '../components/Button';
+import Footer from '../components/Footer';
+
 import Coffees from './Coffees';
 import StarterKit from './StarterKit';
 import MobileStarterKit from './MobileStarterKit';
@@ -189,6 +191,7 @@ const Home = () => {
       <StarterKit />
       <MobileStarterKit />
       <NewsLetter />
+      <Footer />
     </Wrapper>
   );
 };
