@@ -212,4 +212,10 @@ export default createGlobalStyle`
     .overflow-hidden {
         overflow : hidden;
     }
+
+    .row-reverse{
+        @media ${(props) => props.theme.mediaQueries.large}{
+            flex-direction : row-reverse !important;
+        }
+    }
 `;

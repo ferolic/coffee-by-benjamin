@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { FbSvg, InstaSvg, TwitterSvg } from './Svg';
 
 const FooterWrapper = styled.div`
@@ -102,21 +103,21 @@ const Footer = () => {
       <div>
         <CopyRight> © 2021 - Coffee by Benjamin </CopyRight>
         <LinksWrapper>
-          <a href="/faq">
+          <Link to="/faq">
             <LinkText> FAQ </LinkText>
-          </a>
+          </Link>
 
-          <a href="/privacy">
+          <Link to="/privacy">
             <LinkText> Privacy Policy </LinkText>
-          </a>
+          </Link>
 
-          <a href="/support">
+          <Link to="/support">
             <LinkText> Support </LinkText>
-          </a>
+          </Link>
 
-          <a href="/press-kit">
+          <Link to="/press-kit">
             <LinkText> Press Kit </LinkText>
-          </a>
+          </Link>
         </LinksWrapper>
       </div>
 

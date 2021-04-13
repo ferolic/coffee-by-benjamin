@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Navbar from '../components/Navbar';
+import NewsLetter from '../components/NewsLetter';
+import Footer from '../components/Footer';
 
 const About = styled.div`
   display: flex;
@@ -59,7 +61,7 @@ const VideoModelWrapper = styled.div`
 `;
 
 const VideoLink = styled.a`
-  display: block;
+  display: ${(props) => (props.openVideo ? 'none' : 'block')};
   width: 50px;
   height: 50px;
   background-size: contain;
@@ -73,7 +75,93 @@ const VideoLink = styled.a`
   }
 `;
 
+const StyledIframe = styled.iframe`
+  display: ${(props) => (props.openVideo ? 'block' : 'none')};
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  border-radius: 8px;
+`;
+
+const AboutDescWrapper = styled.div`
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: unset;
+  padding: 0;
+
+  @media ${(props) => props.theme.mediaQueries.large} {
+    padding: 0 0 130px;
+  }
+`;
+
+const AboutDesc = styled.div`
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  align-items: center;
+
+  @media ${(props) => props.theme.mediaQueries.large} {
+    width: 900px;
+    flex-direction: row;
+  }
+`;
+
+const Content = styled.div`
+  width: 90%;
+  height: auto;
+  margin-bottom: 20px;
+
+  @media ${(props) => props.theme.mediaQueries.large} {
+    width: 45%;
+  }
+`;
+
+const Title = styled.h2`
+  font-weight: 800;
+  font-size: 24px;
+  line-height: 38px;
+
+  @media ${(props) => props.theme.mediaQueries.large} {
+    font-size: 40px;
+    line-height: 56px;
+  }
+`;
+
+const Desc = styled.p`
+  font-size: 20px;
+  line-height: 32px;
+  color: ${(props) => props.theme.colors.textSecondary};
+  margin: 20px 0;
+`;
+
+const StyledImage = styled.img`
+  width: 100%;
+  height: 400px;
+  border-radius: 4px;
+  margin-bottom: 80px;
+  border: 0;
+  object-fit: cover;
+
+  @media ${(props) => props.theme.mediaQueries.large} {
+    width: 45%;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+`;
+
 const AboutPage = () => {
+  const [openVideo, setOpenVideo] = useState(false);
+
+  const playVideo = () => {
+    setOpenVideo((openVideo) => !openVideo);
+  };
+
   return (
     <About>
       <NavbarWrapper>
@@ -93,8 +181,66 @@ const AboutPage = () => {
         </p>
       </Header>
       <VideoModelWrapper>
-          <VideoLink></VideoLink>
+        <StyledIframe
+          title="video"
+          src="https://www.youtube.com/embed/kAvr2CCYYLA?autoplay=1"
+          frameBorder="0"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          openVideo={openVideo}
+        ></StyledIframe>
+        <VideoLink openVideo={openVideo} onClick={playVideo}></VideoLink>
       </VideoModelWrapper>
+
+      <AboutDescWrapper>
+        <AboutDesc>
+          <Content>
+            <Title> Everything you need to become a homeroaster </Title>
+            <Desc>
+              Coffee by Benjamin is your home roasting coffee experience. Want
+              to know everything about roasting green coffee in your own oven?
+              Our Starter Kit contains everything to turn you into a home
+              roaster; a custom metal tray, Bluetooth thermometer, the Coffee by
+              Benjamin app and three high quality coffees.
+            </Desc>
+          </Content>
+          <StyledImage src="../img/roaster.jpg" />
+        </AboutDesc>
+      </AboutDescWrapper>
+
+      <AboutDescWrapper>
+        <AboutDesc className="row-reverse">
+          <Content>
+            <Title> The best beans for the freshest coffee </Title>
+            <Desc>
+              We only select raw coffee beans of the highest quality. All our
+              coffees are specifically selected because of their home roasting
+              capabilities. The Starter Kit contains three premium (AA)
+              single-origin coffees, with various flavors and enough for a month
+              of your own home roasted coffee.
+            </Desc>
+          </Content>
+          <StyledImage src="../img/beans.jpg" />
+        </AboutDesc>
+      </AboutDescWrapper>
+
+      <AboutDescWrapper>
+        <AboutDesc>
+          <Content>
+            <Title>The Starter Kit is only the beginning of your journey</Title>
+            <Desc>
+              All out of coffee? Just reorder your favorite beans from our
+              webshop! We plan to release new coffees from other regions on our
+              website and app. If Coffee by Benjamin makes you excited about
+              roasting, wait until you have experienced your own coffee roasts
+              with beans from all over the world. This is only the beginning of
+              your journey.
+            </Desc>
+          </Content>
+          <StyledImage src="../img/desc3.jpg" />
+        </AboutDesc>
+      </AboutDescWrapper>
+      <NewsLetter />
+      <Footer />
     </About>
   );
 };

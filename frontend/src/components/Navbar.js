@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { MenuSvg, BrandingSvg, CartSvg, CloseSvg } from './Svg';
 
 const Wrapper = styled.div`
@@ -23,7 +24,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const StyledLink = styled.a`
+const StyledLink = styled(Link)`
   height: 16px;
 `;
 
@@ -34,7 +35,7 @@ const NavWrapper = styled.div`
   }
 `;
 
-const Nav = styled.a`
+const Nav = styled(Link)`
   color: ${(props) => props.theme.colors.linkPrimary};
   font-weight: 500;
   margin-right: 16px;
@@ -84,7 +85,7 @@ const SideNavbar = styled.div`
   }
 `;
 
-const SideNav = styled.a`
+const SideNav = styled(Link)`
   display: block;
   font-size: 20px;
   line-height: 16px;
@@ -134,30 +135,30 @@ const Navbar = () => {
         <SideNavbar openSideNav={openSideNav}>
           <div className="mt-50">
             <div className="mb-32">
-              <SideNav href="/about"> About </SideNav>
-              <SideNav href="/shop"> Shop </SideNav>
+              <SideNav to="/about" onClick={closeSlide}>About</SideNav>
+              <SideNav to="/shop" onClick={closeSlide}>Shop</SideNav>
             </div>
 
             <div className="link-secondary">
-              <SideNav href="/support"> Support </SideNav>
-              <SideNav href="/faq"> FAQ </SideNav>
-              <SideNav href="/privacy"> Privacy Policy </SideNav>
-              <SideNav href="/press-kit"> Press Kit </SideNav>
+              <SideNav to="/support" onClick={closeSlide}>Support</SideNav>
+              <SideNav to="/faq" onClick={closeSlide}>FAQ</SideNav>
+              <SideNav to="/privacy" onClick={closeSlide}>Privacy Policy</SideNav>
+              <SideNav to="/press-kit" onClick={closeSlide}>Press Kit</SideNav>
             </div>
           </div>
         </SideNavbar>
 
-        <StyledLink href="/">
+        <StyledLink to="/">
           <BrandingSvg />
         </StyledLink>
         <NavWrapper>
-          <Nav href="/about" hideOnMobile>
+          <Nav to="/about" hideOnMobile>
             About
           </Nav>
-          <Nav href="/shop" hideOnMobile>
+          <Nav to="/shop" hideOnMobile>
             Shop
           </Nav>
-          <Nav href="/cart">
+          <Nav to="/cart">
             <CartSvg />
           </Nav>
         </NavWrapper>
