@@ -215,7 +215,16 @@ export default createGlobalStyle`
 
     .row-reverse{
         @media ${(props) => props.theme.mediaQueries.large}{
-            flex-direction : row-reverse !important;
+            flex-direction : row-reverse ;
+        }
+    }
+
+    .w-48 {
+        margin-bottom : 30px;
+        @media ${(props) => props.theme.mediaQueries.large}{
+            width : 48%;
+            flex: unset;
+            min-width: unset;
         }
     }
 `;
