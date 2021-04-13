@@ -10,12 +10,6 @@ const About = styled.div`
   min-height: 100vh;
 `;
 
-const NavbarWrapper = styled.div`
-  @media ${(props) => props.theme.mediaQueries.large} {
-    padding-top: 40px;
-  }
-`;
-
 const HeaderTop = styled.div`
   @media ${(props) => props.theme.mediaQueries.large} {
     width: 100%;
@@ -164,9 +158,9 @@ const AboutPage = () => {
 
   return (
     <About>
-      <NavbarWrapper>
+      <div className="navbar-wrapper">
         <Navbar />
-      </NavbarWrapper>
+      </div>
       <HeaderTop></HeaderTop>
       <Header>
         <h2 className="title">

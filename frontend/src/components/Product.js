@@ -1,4 +1,6 @@
+import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const Wrapper = styled.div`
   position: relative;
@@ -38,7 +40,7 @@ const Popup = styled.div`
   @media ${(props) => props.theme.mediaQueries.medium} {
     display: none;
   }
-  
+
   &:hover {
     opacity: 1;
   }
@@ -107,24 +109,24 @@ const Product = ({ id, src, alt, title, price, showPopup }) => {
   return (
     <Wrapper>
       <ImageWrapper>
-        <a href={`/product/${id}`}>
+        <Link to={`/product/${id}`}>
           <Image src={src} alt={alt} />
-        </a>
+        </Link>
         <Popup showPopup={showPopup}>
           <StyledButton className="mr-10">
             <ButtonText> Add To Cart </ButtonText>
           </StyledButton>
-          <a href="/cart" className="link-btn">
+          <Link to="/cart" className="link-btn">
             <StyledButton dark>
               <ButtonText> Buy Now </ButtonText>
             </StyledButton>
-          </a>
+          </Link>
         </Popup>
       </ImageWrapper>
       <div>
-        <a href={`/product/${id}`}>
+        <Link to={`/product/${id}`}>
           <Title> {title} </Title>
-        </a>
+        </Link>
         <Price> € {price} </Price>
       </div>
     </Wrapper>

@@ -43,7 +43,7 @@ const Nav = styled(Link)`
   line-height: 22px;
 
   @media ${(props) => props.theme.mediaQueries.medium} {
-    display: ${(props) => (props.hideOnMobile ? 'none' : 'block')};
+    display: ${(props) => (props.hideonmobile ? 'none' : 'block')};
   }
 
   &:hover {
@@ -135,15 +135,27 @@ const Navbar = () => {
         <SideNavbar openSideNav={openSideNav}>
           <div className="mt-50">
             <div className="mb-32">
-              <SideNav to="/about" onClick={closeSlide}>About</SideNav>
-              <SideNav to="/shop" onClick={closeSlide}>Shop</SideNav>
+              <SideNav to="/about" onClick={closeSlide}>
+                About
+              </SideNav>
+              <SideNav to="/shop" onClick={closeSlide}>
+                Shop
+              </SideNav>
             </div>
 
             <div className="link-secondary">
-              <SideNav to="/support" onClick={closeSlide}>Support</SideNav>
-              <SideNav to="/faq" onClick={closeSlide}>FAQ</SideNav>
-              <SideNav to="/privacy" onClick={closeSlide}>Privacy Policy</SideNav>
-              <SideNav to="/press-kit" onClick={closeSlide}>Press Kit</SideNav>
+              <SideNav to="/support" onClick={closeSlide}>
+                Support
+              </SideNav>
+              <SideNav to="/faq" onClick={closeSlide}>
+                FAQ
+              </SideNav>
+              <SideNav to="/privacy" onClick={closeSlide}>
+                Privacy Policy
+              </SideNav>
+              <SideNav to="/press-kit" onClick={closeSlide}>
+                Press Kit
+              </SideNav>
             </div>
           </div>
         </SideNavbar>
@@ -152,10 +164,10 @@ const Navbar = () => {
           <BrandingSvg />
         </StyledLink>
         <NavWrapper>
-          <Nav to="/about" hideOnMobile>
+          <Nav to="/about" hideonmobile="true">
             About
           </Nav>
-          <Nav to="/shop" hideOnMobile>
+          <Nav to="/shop" hideonmobile="true">
             Shop
           </Nav>
           <Nav to="/cart">

@@ -25,7 +25,7 @@ const StyledButton = styled.button`
   }
 
   @media (min-width: 480px) {
-    font-size: 18px;
+    font-size: 20px;
     width: unset;
   }
 `;

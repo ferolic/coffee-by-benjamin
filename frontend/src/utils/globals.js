@@ -55,6 +55,12 @@ export default createGlobalStyle`
         margin: 0;
     }
 
+    hr {
+        box-sizing: content-box;
+        height: 0;
+        overflow: visible;
+    }
+
     .menu-mobile-svg, .close-sv {
         cursor : pointer;
         fill : rgb(19, 19, 19);
@@ -101,7 +107,13 @@ export default createGlobalStyle`
             }
         }
     }
-
+    
+    .navbar-wrapper {
+        @media ${(props) => props.theme.mediaQueries.large}{
+            padding-top : 40px;
+        }
+    }
+    
     .mt-50{
         margin-top : 50px;
     }
@@ -215,7 +227,7 @@ export default createGlobalStyle`
 
     .row-reverse{
         @media ${(props) => props.theme.mediaQueries.large}{
-            flex-direction : row-reverse ;
+            flex-direction : row-reverse !important ;
         }
     }
 
@@ -226,5 +238,9 @@ export default createGlobalStyle`
             flex: unset;
             min-width: unset;
         }
+    }
+
+    .fw-600 {
+        font-weight: 600;
     }
 `;

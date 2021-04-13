@@ -12,12 +12,6 @@ const Shop = styled.div`
   min-height: 100vh;
 `;
 
-const NavbarWrapper = styled.div`
-  @media ${(props) => props.theme.mediaQueries.large} {
-    padding-top: 40px;
-  }
-`;
-
 const Wrapper = styled.div`
   width: 100%;
   max-width: 2100px;
@@ -112,9 +106,9 @@ const FirstProductBtnWrapper = styled.div`
 const ShoppingPage = () => {
   return (
     <Shop>
-      <NavbarWrapper>
+      <div className="navbar-wrapper">
         <Navbar />
-      </NavbarWrapper>
+      </div>
       <Wrapper>
         <ProductWrapper>
           <FirstProductWrapper>
