@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar';
 import Product from '../components/Product';
 import Footer from '../components/Footer';
 import Button from '../components/Button';
+import products from '../products';
 
 const Shop = styled.div`
   display: flex;
@@ -129,49 +130,13 @@ const ShoppingPage = () => {
             </FirstProductInfoWrapper>
           </FirstProductWrapper>
 
-          <div className="w-48">
-            <Product
-              id="1"
-              title="Kenya (300g)"
-              alt="Kenya (300g) product shot"
-              src="../img/kenya.webp"
-              price="7.50"
-              showPopup
-            />
-          </div>
-
-          <div className="w-48">
-            <Product
-              id="2"
-              title="Moshi (300g)"
-              alt="Moshi (300g) product shot"
-              src="../img/moshi.webp"
-              price="7.30"
-              showPopup
-            />
-          </div>
-
-          <div className="w-48">
-            <Product
-              id="3"
-              title="Yirgachefe (300g)"
-              alt="Yirgachefe (300g) product shot"
-              src="../img/yirgachefe.webp"
-              price="6.20"
-              showPopup
-            />
-          </div>
-
-          <div className="w-48">
-            <Product
-              id="4"
-              title="East Africa variety pack (900g)"
-              alt="East Africa variety pack (900g) shot"
-              src="../img/africa.webp"
-              price="20.00"
-              showPopup
-            />
-          </div>
+          {products
+            .filter((product) => product._id !== '5')
+            .map((product) => (
+              <div className="w-48" key={product._id}>
+                <Product product={product} showPopup />
+              </div>
+            ))}
         </ProductWrapper>
       </Wrapper>
       <Footer />

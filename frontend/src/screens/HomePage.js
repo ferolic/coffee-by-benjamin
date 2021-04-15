@@ -3,11 +3,10 @@ import styled from 'styled-components';
 import Navbar from '../components/Navbar';
 import Button from '../components/Button';
 import Footer from '../components/Footer';
-
-import Coffees from './Coffees';
-import StarterKit from './StarterKit';
-import MobileStarterKit from './MobileStarterKit';
-import NewsLetter from './NewsLetter';
+import NewsLetter from '../components/NewsLetter';
+import Coffees from '../containers/Coffees';
+import StarterKit from '../containers/StarterKit';
+import MobileStarterKit from '../containers/MobileStarterKit';
 
 const Wrapper = styled.div`
   display: flex;

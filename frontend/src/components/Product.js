@@ -7,10 +7,10 @@ const Wrapper = styled.div`
   width: 100%;
   margin-bottom: 30px;
   display: none;
-
+  
   &:nth-child(-n + 3) {
-    display: block;
-  }
+      display : block;
+    }
 `;
 
 const ImageWrapper = styled.div`
@@ -105,12 +105,12 @@ const Price = styled.p`
   margin: 30px 0;
 `;
 
-const Product = ({ id, src, alt, title, price, showPopup }) => {
+const Product = ({ product, showPopup }) => {
   return (
     <Wrapper>
       <ImageWrapper>
-        <Link to={`/product/${id}`}>
-          <Image src={src} alt={alt} />
+        <Link to={`/product/${product._id}`}>
+          <Image src={product.image} alt={product.alt} />
         </Link>
         <Popup showPopup={showPopup}>
           <StyledButton className="mr-10">
@@ -124,10 +124,10 @@ const Product = ({ id, src, alt, title, price, showPopup }) => {
         </Popup>
       </ImageWrapper>
       <div>
-        <Link to={`/product/${id}`}>
-          <Title> {title} </Title>
+        <Link to={`/product/${product._id}`}>
+          <Title> {product.name} </Title>
         </Link>
-        <Price> € {price} </Price>
+        <Price> € {product.price} </Price>
       </div>
     </Wrapper>
   );

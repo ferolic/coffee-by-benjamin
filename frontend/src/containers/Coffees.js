@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Product from '../components/Product';
+import products from '../products';
 
 const Wrapper = styled.div`
   background-color: rgb(250, 250, 250);
@@ -89,29 +90,9 @@ const Coffees = () => {
         </p>
       </Header>
       <ProductWrapper>
-        <Product
-          id="1"
-          title="Kenya (300g)"
-          alt="Kenya (300g) product shot"
-          src="../img/kenya.webp"
-          price="7.50"
-        />
-
-        <Product
-          id="2"
-          title="Moshi (300g)"
-          alt="Moshi (300g) product shot"
-          src="../img/moshi.webp"
-          price="7.30"
-        />
-
-        <Product
-          id="3"
-          title="Yirgachefe (300g)"
-          alt="Yirgachefe (300g) product shot"
-          src="../img/yirgachefe.webp"
-          price="6.20"
-        />
+        {products.map((product) => (
+          <Product product={product} key={product._id} />
+        ))}
       </ProductWrapper>
       <a href="/shop">
         <ShopAllProductsWrapper>
