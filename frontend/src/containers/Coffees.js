@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Product from '../components/Product';
-import products from '../products';
+import axios from 'axios';
 
 const Wrapper = styled.div`
   background-color: rgb(250, 250, 250);
@@ -80,6 +81,16 @@ const ShopAllProductsText = styled.p`
 `;
 
 const Coffees = () => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const { data } = await axios.get('/api/products');
+      setProducts(data);
+    };
+    fetchProducts();
+  }, []);
+
   return (
     <Wrapper>
       <Header>
@@ -94,13 +105,13 @@ const Coffees = () => {
           <Product product={product} key={product._id} />
         ))}
       </ProductWrapper>
-      <a href="/shop">
+      <Link to="/shop">
         <ShopAllProductsWrapper>
           <ShopAllProducts>
             <ShopAllProductsText> Shop All Products </ShopAllProductsText>
           </ShopAllProducts>
         </ShopAllProductsWrapper>
-      </a>
+      </Link>
     </Wrapper>
   );
 };

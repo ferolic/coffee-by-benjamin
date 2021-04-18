@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Navbar from '../components/Navbar';
 import Button from '../components/Button';
 import Footer from '../components/Footer';
+import axios from 'axios';
 
 const Wrapper = styled.div`
   display: flex;
@@ -159,8 +160,17 @@ const AboutProduct = styled.div`
   color: ${(props) => props.theme.colors.textSecondary};
 `;
 
-const ProductPage = () => {
+const ProductPage = ({ match }) => {
+  const [product, setProduct] = useState({});
   const [qty, setQty] = useState(1);
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const { data } = await axios.get(`/api/products/${match.params.id}`);
+      setProduct(data);
+    };
+    fetchProduct();
+  }, [match]);
 
   return (
     <Wrapper>
@@ -172,18 +182,18 @@ const ProductPage = () => {
         <ProductDetails>
           <ProductDetailsLeft>
             <ProductDesc>
-              <ProductTitle> Kenya (300g) </ProductTitle>
-              <ProductPrice> €7.50 </ProductPrice>
+              <ProductTitle> {product.name} </ProductTitle>
+              <ProductPrice> € ${product.price} </ProductPrice>
             </ProductDesc>
             <ProductImageWrapper>
-              <ProductImage src="../img/kenya.webp" />
+              <ProductImage src={product.img} alt={product.alt} />
             </ProductImageWrapper>
           </ProductDetailsLeft>
 
           <ProductDetailsRight>
             <ProductInfo>
-              <Title> Kenya (300g) </Title>
-              <Price> €7.50 </Price>
+              <Title> {product.name} </Title>
+              <Price> € {product.price} </Price>
               <QtyContainer>
                 <label className="fw-600">
                   Quantity
@@ -204,14 +214,7 @@ const ProductPage = () => {
               <AboutProduct>
                 <div>
                   <meta charSet="utf-8" />
-                  <span>
-                    A truly one-of-a-kind coffee. These Arabica beans from Kenya
-                    have special and pleasant taste characteristics: aromatic,
-                    mild and quite acidic. Its sourish taste and citrus flavors
-                    give the beans their typical Kenyan taste, incomparable with
-                    other coffee beans. The taste becomes even more intense due
-                    to the growth on fairly high slopes.
-                  </span>
+                  <span>{product.description}</span>
                 </div>
               </AboutProduct>
             </ProductInfo>

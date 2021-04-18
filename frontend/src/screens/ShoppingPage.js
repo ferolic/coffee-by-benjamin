@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Navbar from '../components/Navbar';
 import Product from '../components/Product';
 import Footer from '../components/Footer';
 import Button from '../components/Button';
-import products from '../products';
+import axios from 'axios';
 
 const Shop = styled.div`
   display: flex;
@@ -105,6 +105,16 @@ const FirstProductBtnWrapper = styled.div`
 `;
 
 const ShoppingPage = () => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const { data } = await axios.get('/api/products');
+      setProducts(data);
+    };
+    fetchProducts();
+  }, []);
+
   return (
     <Shop>
       <div className="navbar-wrapper">
@@ -114,7 +124,7 @@ const ShoppingPage = () => {
         <ProductWrapper>
           <FirstProductWrapper>
             <FirstProductImageWrapper>
-              <Link to="/product/1">
+              <Link to="/products/607c03215d5e1805384c5355">
                 <FirstProductImage src="../img/kit.webp" />
               </Link>
             </FirstProductImageWrapper>
@@ -131,7 +141,7 @@ const ShoppingPage = () => {
           </FirstProductWrapper>
 
           {products
-            .filter((product) => product._id !== '5')
+            .filter((product) => product._id !== '607c03215d5e1805384c5355')
             .map((product) => (
               <div className="w-48" key={product._id}>
                 <Product product={product} showPopup />

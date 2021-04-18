@@ -7,10 +7,10 @@ const Wrapper = styled.div`
   width: 100%;
   margin-bottom: 30px;
   display: none;
-  
+
   &:nth-child(-n + 3) {
-      display : block;
-    }
+    display: block;
+  }
 `;
 
 const ImageWrapper = styled.div`
@@ -109,8 +109,8 @@ const Product = ({ product, showPopup }) => {
   return (
     <Wrapper>
       <ImageWrapper>
-        <Link to={`/product/${product._id}`}>
-          <Image src={product.image} alt={product.alt} />
+        <Link to={`/products/${product._id}`}>
+          <Image src={product.img} alt={product.alt} />
         </Link>
         <Popup showPopup={showPopup}>
           <StyledButton className="mr-10">
