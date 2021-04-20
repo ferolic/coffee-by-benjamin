@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Product from '../components/Product';
-import axios from 'axios';
+import { listProducts } from '../actions/productActions';
 
 const Wrapper = styled.div`
   background-color: rgb(250, 250, 250);
@@ -81,15 +82,12 @@ const ShopAllProductsText = styled.p`
 `;
 
 const Coffees = () => {
-  const [products, setProducts] = useState([]);
-
+  const productList = useSelector((state) => state.productList);
+  const { loading, products, error } = productList;
+  const dispatch = useDispatch();
   useEffect(() => {
-    const fetchProducts = async () => {
-      const { data } = await axios.get('/api/products');
-      setProducts(data);
-    };
-    fetchProducts();
-  }, []);
+    dispatch(listProducts());
+  }, [dispatch]);
 
   return (
     <Wrapper>
@@ -101,9 +99,17 @@ const Coffees = () => {
         </p>
       </Header>
       <ProductWrapper>
-        {products.map((product) => (
-          <Product product={product} key={product._id} />
-        ))}
+        {loading ? (
+          <h2> Loading... </h2>
+        ) : error ? (
+          <h2> {error} </h2>
+        ) : (
+          <>
+            {products.map((product) => (
+              <Product product={product} key={product._id} />
+            ))}
+          </>
+        )}
       </ProductWrapper>
       <Link to="/shop">
         <ShopAllProductsWrapper>

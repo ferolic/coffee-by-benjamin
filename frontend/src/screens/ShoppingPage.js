@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Navbar from '../components/Navbar';
 import Product from '../components/Product';
 import Footer from '../components/Footer';
 import Button from '../components/Button';
-import axios from 'axios';
+import { listProducts } from '../actions/productActions';
 
 const Shop = styled.div`
   display: flex;
@@ -105,15 +106,13 @@ const FirstProductBtnWrapper = styled.div`
 `;
 
 const ShoppingPage = () => {
-  const [products, setProducts] = useState([]);
+  const productList = useSelector((state) => state.productList);
+  const { loading, products, error } = productList;
 
+  const dispatch = useDispatch();
   useEffect(() => {
-    const fetchProducts = async () => {
-      const { data } = await axios.get('/api/products');
-      setProducts(data);
-    };
-    fetchProducts();
-  }, []);
+    dispatch(listProducts());
+  }, [dispatch]);
 
   return (
     <Shop>
@@ -139,14 +138,21 @@ const ShoppingPage = () => {
               </FirstProductBtnWrapper>
             </FirstProductInfoWrapper>
           </FirstProductWrapper>
-
-          {products
-            .filter((product) => product._id !== '607c03215d5e1805384c5355')
-            .map((product) => (
-              <div className="w-48" key={product._id}>
-                <Product product={product} showPopup />
-              </div>
-            ))}
+          {loading ? (
+            <h2> Loading... </h2>
+          ) : error ? (
+            <h2> {error} </h2>
+          ) : (
+            <>
+              {products
+                .filter((product) => product.name !== 'Home roasting kit')
+                .map((product) => (
+                  <div className="w-48" key={product._id}>
+                    <Product product={product} />
+                  </div>
+                ))}
+            </>
+          )}
         </ProductWrapper>
       </Wrapper>
       <Footer />
