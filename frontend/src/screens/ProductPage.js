@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Navbar from '../components/Navbar';
 import Button from '../components/Button';
 import Footer from '../components/Footer';
-import axios from 'axios';
+import { listProductDetails } from '../actions/productActions';
 
 const Wrapper = styled.div`
   display: flex;
@@ -161,66 +162,69 @@ const AboutProduct = styled.div`
 `;
 
 const ProductPage = ({ match }) => {
-  const [product, setProduct] = useState({});
   const [qty, setQty] = useState(1);
+  const productDetails = useSelector((state) => state.productDetails);
+  const { loading, product, error } = productDetails;
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const fetchProduct = async () => {
-      const { data } = await axios.get(`/api/products/${match.params.id}`);
-      setProduct(data);
-    };
-    fetchProduct();
-  }, [match]);
+    dispatch(listProductDetails(match.params.id));
+  }, [dispatch, match]);
 
   return (
     <Wrapper>
       <div className="navbar-wrapper">
         <Navbar />
       </div>
+      {loading ? (
+        <h2> loading... </h2>
+      ) : error ? (
+        <h2> {error} </h2>
+      ) : (
+        <ProductDetailsWrapper>
+          <ProductDetails>
+            <ProductDetailsLeft>
+              <ProductDesc>
+                <ProductTitle> {product.name} </ProductTitle>
+                <ProductPrice> € ${product.price} </ProductPrice>
+              </ProductDesc>
+              <ProductImageWrapper>
+                <ProductImage src={product.img} alt={product.alt} />
+              </ProductImageWrapper>
+            </ProductDetailsLeft>
 
-      <ProductDetailsWrapper>
-        <ProductDetails>
-          <ProductDetailsLeft>
-            <ProductDesc>
-              <ProductTitle> {product.name} </ProductTitle>
-              <ProductPrice> € ${product.price} </ProductPrice>
-            </ProductDesc>
-            <ProductImageWrapper>
-              <ProductImage src={product.img} alt={product.alt} />
-            </ProductImageWrapper>
-          </ProductDetailsLeft>
+            <ProductDetailsRight>
+              <ProductInfo>
+                <Title> {product.name} </Title>
+                <Price> € {product.price} </Price>
+                <QtyContainer>
+                  <label className="fw-600">
+                    Quantity
+                    <QtyInput
+                      type="number"
+                      min="0"
+                      value={qty}
+                      onChange={(e) => setQty(e.target.value)}
+                    />
+                  </label>
+                </QtyContainer>
 
-          <ProductDetailsRight>
-            <ProductInfo>
-              <Title> {product.name} </Title>
-              <Price> € {product.price} </Price>
-              <QtyContainer>
-                <label className="fw-600">
-                  Quantity
-                  <QtyInput
-                    type="number"
-                    min="0"
-                    value={qty}
-                    onChange={(e) => setQty(e.target.value)}
-                  />
-                </label>
-              </QtyContainer>
-
-              <ActionContainer>
-                <Button text="Add To Cart" />
-                <Button text="Buy Now" dark />
-              </ActionContainer>
-              <StyledHR />
-              <AboutProduct>
-                <div>
-                  <meta charSet="utf-8" />
-                  <span>{product.description}</span>
-                </div>
-              </AboutProduct>
-            </ProductInfo>
-          </ProductDetailsRight>
-        </ProductDetails>
-      </ProductDetailsWrapper>
+                <ActionContainer>
+                  <Button text="Add To Cart" />
+                  <Button text="Buy Now" dark />
+                </ActionContainer>
+                <StyledHR />
+                <AboutProduct>
+                  <div>
+                    <meta charSet="utf-8" />
+                    <span>{product.description}</span>
+                  </div>
+                </AboutProduct>
+              </ProductInfo>
+            </ProductDetailsRight>
+          </ProductDetails>
+        </ProductDetailsWrapper>
+      )}
       <Footer />
     </Wrapper>
   );
