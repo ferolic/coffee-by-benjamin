@@ -161,15 +161,19 @@ const AboutProduct = styled.div`
   color: ${(props) => props.theme.colors.textSecondary};
 `;
 
-const ProductPage = ({ match }) => {
+const ProductPage = ({ match, history }) => {
   const [qty, setQty] = useState(1);
+  const dispatch = useDispatch();
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, product, error } = productDetails;
-  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(listProductDetails(match.params.id));
   }, [dispatch, match]);
+
+  const addToCartHandler = () => {
+    history.push(`/cart/${match.params.id}?qty=${qty}`);
+  };
 
   return (
     <Wrapper>
@@ -210,7 +214,9 @@ const ProductPage = ({ match }) => {
                 </QtyContainer>
 
                 <ActionContainer>
-                  <Button text="Add To Cart" />
+                  <span onClick={addToCartHandler}>
+                    <Button text="Add To Cart" />
+                  </span>
                   <Button text="Buy Now" dark />
                 </ActionContainer>
                 <StyledHR />

@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Navbar from '../components/Navbar';
 import Button from '../components/Button';
 import Footer from '../components/Footer';
+import { addToCart, removeFromCart } from '../actions/cartActions';
 
 const Cart = styled.div`
   display: flex;
@@ -153,6 +156,7 @@ const ProductTitle = styled.h2`
   font-weight: 500;
   text-align: left;
   width: 100%;
+  color: #000;
 
   @media ${(props) => props.theme.mediaQueries.large} {
     margin-bottom: 10px;
@@ -284,13 +288,33 @@ const ShippingCost = styled.p`
 const BtnWrapper = styled.div`
   margin-top: 20px;
   float: right;
-  
+
   & > * {
     margin-right: 0;
   }
 `;
 
-const CartPage = () => {
+const CartPage = ({ match, location, history }) => {
+  const productId = match.params.id;
+  const qty = location.search ? Number(location.search.split('=')[1]) : 1;
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
+
+  useEffect(() => {
+    if (productId) {
+      dispatch(addToCart(productId, qty));
+    }
+  }, [dispatch, productId, qty]);
+
+  const removeFromCartHandler = (id) => {
+    dispatch(removeFromCart(id));
+  };
+
+  const checkoutHandler = () => {
+    history.push(`/login/?redirect=shipping`);
+  };
+
   return (
     <Cart>
       <div className="navbar-wrapper">
@@ -306,34 +330,60 @@ const CartPage = () => {
             <TabTitle> Total </TabTitle>
           </StyledTab>
 
-          <LiWrapper>
-            <StyledLi>
-              <LiLeft>
-                <ImageWrapper>
-                  <StyledImage src="../img/kenya.webp" />
-                </ImageWrapper>
-                <ProductDesc>
-                  <ProductTitle> Kenya (300g) </ProductTitle>
-                  <Remove> Remove </Remove>
-                </ProductDesc>
-              </LiLeft>
+          {cartItems.map((item) => (
+            <LiWrapper key={item.product}>
+              <StyledLi>
+                <LiLeft>
+                  <ImageWrapper>
+                    <StyledImage src={item.img} />
+                  </ImageWrapper>
+                  <ProductDesc>
+                    <Link to={`/products/${item.product}`}>
+                      <ProductTitle> {item.name} </ProductTitle>
+                    </Link>
+                    <Remove onClick={() => removeFromCartHandler(item.product)}>
+                      Remove
+                    </Remove>
+                  </ProductDesc>
+                </LiLeft>
 
-              <LiRight>
-                <Price> € 7.50 </Price>
-                <ChangeQtyWrapper>
-                  <ChangeQtyBtn> − </ChangeQtyBtn>
-                  <QtyText> 2 </QtyText>
-                  <ChangeQtyBtn> + </ChangeQtyBtn>
-                </ChangeQtyWrapper>
-                <TotalProductPrice> € 7.50 </TotalProductPrice>
-              </LiRight>
-            </StyledLi>
-          </LiWrapper>
+                <LiRight>
+                  <Price> € {item.price.toFixed(2)} </Price>
+                  <ChangeQtyWrapper>
+                    <ChangeQtyBtn
+                      onClick={(e) =>
+                        dispatch(addToCart(item.product, Number(item.qty - 1)))
+                      }
+                      disabled={item.qty == 1}
+                    >
+                      −
+                    </ChangeQtyBtn>
+                    <QtyText> {item.qty} </QtyText>
+                    <ChangeQtyBtn
+                      onClick={(e) =>
+                        dispatch(addToCart(item.product, Number(item.qty + 1)))
+                      }
+                      disabled={item.qty == item.countInStock}
+                    >
+                      +
+                    </ChangeQtyBtn>
+                  </ChangeQtyWrapper>
+                  <TotalProductPrice>
+                    € {(item.qty * item.price).toFixed(2)}
+                  </TotalProductPrice>
+                </LiRight>
+              </StyledLi>
+            </LiWrapper>
+          ))}
 
           <div className="pt-20">
             <TotalPriceWrapper>
               <StyledTotalPrice>
-                <TotalPrice> € 7.50 </TotalPrice>
+                <TotalPrice>
+                  {cartItems
+                    .reduce((acc, item) => acc + item.qty * item.price, 0)
+                    .toFixed(2)}
+                </TotalPrice>
                 <ShippingCost>
                   Shipping costs excluded (tax may apply)
                 </ShippingCost>
