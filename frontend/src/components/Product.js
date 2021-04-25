@@ -113,9 +113,11 @@ const Product = ({ product, showPopup }) => {
           <Image src={product.img} alt={product.alt} />
         </Link>
         <Popup showPopup={showPopup}>
-          <StyledButton className="mr-10">
-            <ButtonText> Add To Cart </ButtonText>
-          </StyledButton>
+          <Link to="/cart" className="link-btn">
+            <StyledButton className="mr-10">
+              <ButtonText> Add To Cart </ButtonText>
+            </StyledButton>
+          </Link>
           <Link to="/cart" className="link-btn">
             <StyledButton dark>
               <ButtonText> Buy Now </ButtonText>

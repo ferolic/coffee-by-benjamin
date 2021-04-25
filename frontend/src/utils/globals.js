@@ -126,6 +126,10 @@ export default createGlobalStyle`
         margin-right : 10px;
     }
     
+    .pt-20 {
+        padding-top : 20px;
+    }
+    
     .link-secondary > a {
         color : ${(props) => props.theme.colors.linkSecondary};
     }

@@ -148,7 +148,7 @@ const ShoppingPage = () => {
                 .filter((product) => product.name !== 'Home roasting kit')
                 .map((product) => (
                   <div className="w-48" key={product._id}>
-                    <Product product={product} />
+                    <Product product={product} showPopup />
                   </div>
                 ))}
             </>
