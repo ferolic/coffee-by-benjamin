@@ -217,7 +217,9 @@ const ProductPage = ({ match, history }) => {
                   <span onClick={addToCartHandler}>
                     <Button text="Add To Cart" />
                   </span>
-                  <Button text="Buy Now" dark />
+                  <span onClick={addToCartHandler}>
+                    <Button text="Buy Now" dark />
+                  </span>
                 </ActionContainer>
                 <StyledHR />
                 <AboutProduct>

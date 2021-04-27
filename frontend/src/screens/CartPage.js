@@ -285,6 +285,7 @@ const ShippingCost = styled.p`
   font-size: 20px;
   line-height: 32px;
   color: rgba(0, 0, 0, 0.45);
+  margin: 20px 0;
 `;
 
 const BtnWrapper = styled.div`
@@ -294,6 +295,14 @@ const BtnWrapper = styled.div`
   & > * {
     margin-right: 0;
   }
+`;
+
+const EmptyText = styled.p`
+  font-size: 20px;
+  line-height: 32px;
+  color: ${(props) => props.theme.colors.textSecondary};
+  text-align: center;
+  margin-top: 0;
 `;
 
 const CartPage = ({ match, location, history }) => {
@@ -324,7 +333,10 @@ const CartPage = ({ match, location, history }) => {
       </div>
 
       {cartItems.length === 0 ? (
-        <div> empty </div>
+        <Wrapper>
+          <HeaderTitle> Your shopping cart </HeaderTitle>
+          <EmptyText> Your shopping cart is currently empty </EmptyText>
+        </Wrapper>
       ) : (
         <ShopCartWrapper style={{ flex: '1 0 auto' }}>
           <Wrapper>
@@ -389,6 +401,7 @@ const CartPage = ({ match, location, history }) => {
               <TotalPriceWrapper>
                 <StyledTotalPrice>
                   <TotalPrice>
+                    €
                     {cartItems
                       .reduce((acc, item) => acc + item.qty * item.price, 0)
                       .toFixed(2)}

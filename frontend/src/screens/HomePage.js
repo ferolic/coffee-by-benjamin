@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Button from '../components/Button';
 import Footer from '../components/Footer';
@@ -167,15 +168,15 @@ const Home = () => {
                 Discover coffee like never before. We provide a complete toolkit
                 for you to start roasting at home.
               </ShowcaseDesc>
-              <a href="/product/1">
+              <Link to="/cart/60857dbc35e69d17e4ca7f58?qty=1">
                 <Button text="Buy For €99" />
-              </a>
-              <a href="/about">
+              </Link>
+              <Link to="/about">
                 <Button text="Watch Video" dark />
-              </a>
-              <a href="/download" className="show-on-mobile">
+              </Link>
+              <Link to="/download" className="show-on-mobile">
                 <Button text="Download app" dark />
-              </a>
+              </Link>
               <QrCodeWrapper>
                 <QrCode src="../img/qrcode.png" />
                 <QrCodeDesc>Scan to download the app (iOS, Android)</QrCodeDesc>

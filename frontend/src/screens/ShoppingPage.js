@@ -123,7 +123,7 @@ const ShoppingPage = () => {
         <ProductWrapper>
           <FirstProductWrapper>
             <FirstProductImageWrapper>
-              <Link to="/products/607c03215d5e1805384c5355">
+              <Link to="/products/60857dbc35e69d17e4ca7f58">
                 <FirstProductImage src="../img/kit.webp" />
               </Link>
             </FirstProductImageWrapper>
@@ -133,8 +133,12 @@ const ShoppingPage = () => {
               </Link>
               <FirstProductPrice> € 99.00 </FirstProductPrice>
               <FirstProductBtnWrapper>
-                <Button text="Add To Cart" />
-                <Button text="Buy Now" dark />
+                <Link to="/cart/60857dbc35e69d17e4ca7f58?qty=1">
+                  <Button text="Add To Cart" />
+                </Link>
+                <Link to="/cart/60857dbc35e69d17e4ca7f58?qty=1">
+                  <Button text="Buy Now" dark />
+                </Link>
               </FirstProductBtnWrapper>
             </FirstProductInfoWrapper>
           </FirstProductWrapper>

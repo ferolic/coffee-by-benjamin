@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { MenuSvg, BrandingSvg, CartSvg, CloseSvg } from './Svg';
@@ -94,8 +95,27 @@ const SideNav = styled(Link)`
   margin-bottom: 16px;
 `;
 
+const QtyNo = styled.div`
+  position: absolute;
+  top: -5px;
+  right: -9px;
+  width: 15px;
+  box-sizing: content-box;
+  height: 15px;
+  text-align: center;
+  border: 1px solid white;
+  border-radius: 20px;
+  color: white;
+  font-size: 10px;
+  line-height: 15px;
+  background-color: red;
+  display: ${(props) => (props.ItemInCart ? 'block' : 'none')};
+`;
+
 const Navbar = () => {
   const [openSideNav, setOpenSideNav] = useState(false);
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
 
   const openSlide = () => {
     setOpenSideNav(true);
@@ -170,8 +190,11 @@ const Navbar = () => {
           <Nav to="/shop" hideonmobile="true">
             Shop
           </Nav>
-          <Nav to="/cart">
+          <Nav to="/cart" className="p-relative">
             <CartSvg />
+            <QtyNo ItemInCart={cartItems.length > 0}>
+              {cartItems.reduce((acc, item) => acc + item.qty, 0)}
+            </QtyNo>
           </Nav>
         </NavWrapper>
       </Wrapper>

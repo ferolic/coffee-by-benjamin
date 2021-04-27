@@ -70,10 +70,15 @@ export default createGlobalStyle`
         width: 152px;
         fill : rgb(19, 19, 19);
     }
-
+    .p-relative {
+        position : relative;
+    }
+    
     .cart-svg {
         fill : rgb(19, 19, 19);
         transition : opacity 0.2s ease 0s;
+        position : relative;
+
         @media ${(props) => props.theme.mediaQueries.large}{
             display : inline-block;
             margin-left: 10px;
