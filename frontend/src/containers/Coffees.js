@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import Product from '../components/Product';
 import { listProducts } from '../actions/productActions';
 
-const Wrapper = styled.div`
+const CoffeeWrapper = styled.div`
   background-color: rgb(250, 250, 250);
   padding: 0;
 
@@ -14,7 +14,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const Header = styled.div`
+const CoffeeHeader = styled.div`
   margin-left: auto;
   margin-right: auto;
   padding: 100px 0;
@@ -27,7 +27,7 @@ const Header = styled.div`
   }
 `;
 
-const ProductWrapper = styled.div`
+const CoffeeProductWrapper = styled.div`
   width: 100%;
   max-width: 2100px;
   padding-left: 25px;
@@ -90,15 +90,15 @@ const Coffees = () => {
   }, [dispatch]);
 
   return (
-    <Wrapper>
-      <Header>
+    <CoffeeWrapper>
+      <CoffeeHeader>
         <h2 className="title"> Our Coffees </h2>
         <p className="desc">
           This is our selection of high quality raw coffee beans suitable for
           home roasting.
         </p>
-      </Header>
-      <ProductWrapper>
+      </CoffeeHeader>
+      <CoffeeProductWrapper>
         {loading ? (
           <h2> Loading... </h2>
         ) : error ? (
@@ -110,7 +110,7 @@ const Coffees = () => {
             ))}
           </>
         )}
-      </ProductWrapper>
+      </CoffeeProductWrapper>
       <Link to="/shop">
         <ShopAllProductsWrapper>
           <ShopAllProducts>
@@ -118,7 +118,7 @@ const Coffees = () => {
           </ShopAllProducts>
         </ShopAllProductsWrapper>
       </Link>
-    </Wrapper>
+    </CoffeeWrapper>
   );
 };
 

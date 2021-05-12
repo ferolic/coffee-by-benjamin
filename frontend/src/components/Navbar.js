@@ -20,13 +20,15 @@ const Wrapper = styled.div`
   z-index: 999;
   animation: ${(props) =>
     props.scrolled ? ' 0.5s ease 0s 1 normal none running animateNav;' : ''};
+  position: ${(props) => (props.scrolled ? 'fixed' : '')};
+  top: ${(props) => (props.scrolled ? '0' : '')};
+  background: ${(props) => (props.scrolled ? 'white' : '')};
+  box-shadow: ${(props) =>
+    props.scrolled ? 'rgb(0 0 0 / 12%) 0px 2px 8px' : ''};
 
   @media ${(props) => props.theme.mediaQueries.large} {
     padding-left: 50px;
     padding-right: 50px;
-    position: ${(props) => (props.scrolled ? 'fixed' : '')};
-    top: ${(props) => (props.scrolled ? '0' : '')};
-    background: ${(props) => (props.scrolled ? 'white' : '')};
   }
 
   @keyframes animateNav {

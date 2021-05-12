@@ -31,6 +31,10 @@ export default createGlobalStyle`
         cursor : pointer;
     }
 
+    a:hover {
+        text-decoration : none;
+    }
+
     h1 {
         font-size : 2em;
         margin : 0.67em 0;

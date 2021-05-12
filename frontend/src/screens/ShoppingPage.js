@@ -115,39 +115,40 @@ const ShoppingPage = () => {
   }, [dispatch]);
 
   return (
-    <Shop>
-      <div className="navbar-wrapper">
-        <Navbar />
-      </div>
-      <Wrapper>
-        <ProductWrapper>
-          <FirstProductWrapper>
-            <FirstProductImageWrapper>
-              <Link to="/products/60857dbc35e69d17e4ca7f58">
-                <FirstProductImage src="../img/kit.webp" />
-              </Link>
-            </FirstProductImageWrapper>
-            <FirstProductInfoWrapper>
-              <Link to="/product/1a">
-                <FirstProductTitle> Home roasting kit </FirstProductTitle>
-              </Link>
-              <FirstProductPrice> € 99.00 </FirstProductPrice>
-              <FirstProductBtnWrapper>
-                <Link to="/cart/60857dbc35e69d17e4ca7f58?qty=1">
-                  <Button text="Add To Cart" />
-                </Link>
-                <Link to="/cart/60857dbc35e69d17e4ca7f58?qty=1">
-                  <Button text="Buy Now" dark />
-                </Link>
-              </FirstProductBtnWrapper>
-            </FirstProductInfoWrapper>
-          </FirstProductWrapper>
-          {loading ? (
-            <h2> Loading... </h2>
-          ) : error ? (
-            <h2> {error} </h2>
-          ) : (
-            <>
+    <>
+      {loading ? (
+        <p> Loading...</p>
+      ) : error ? (
+        <p> {error} </p>
+      ) : (
+        <Shop>
+          <div className="navbar-wrapper">
+            <Navbar />
+          </div>
+          <Wrapper>
+            <ProductWrapper>
+              <FirstProductWrapper>
+                <FirstProductImageWrapper>
+                  <Link to="/products/60857dbc35e69d17e4ca7f58">
+                    <FirstProductImage src="../img/kit.webp" />
+                  </Link>
+                </FirstProductImageWrapper>
+                <FirstProductInfoWrapper>
+                  <Link to="/product/1a">
+                    <FirstProductTitle> Home roasting kit </FirstProductTitle>
+                  </Link>
+                  <FirstProductPrice> € 99.00 </FirstProductPrice>
+                  <FirstProductBtnWrapper>
+                    <Link to="/cart/60857dbc35e69d17e4ca7f58?qty=1">
+                      <Button text="Add To Cart" />
+                    </Link>
+                    <Link to="/cart/60857dbc35e69d17e4ca7f58?qty=1">
+                      <Button text="Buy Now" dark />
+                    </Link>
+                  </FirstProductBtnWrapper>
+                </FirstProductInfoWrapper>
+              </FirstProductWrapper>
+
               {products
                 .filter((product) => product.name !== 'Home roasting kit')
                 .map((product) => (
@@ -155,12 +156,12 @@ const ShoppingPage = () => {
                     <Product product={product} showPopup />
                   </div>
                 ))}
-            </>
-          )}
-        </ProductWrapper>
-      </Wrapper>
-      <Footer />
-    </Shop>
+            </ProductWrapper>
+          </Wrapper>
+          <Footer />
+        </Shop>
+      )}
+    </>
   );
 };
 
