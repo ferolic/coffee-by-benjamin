@@ -252,4 +252,10 @@ export default createGlobalStyle`
     .fw-600 {
         font-weight: 600;
     }
+
+    .navbar-scrolled {
+        position : fixed;
+        top : 0;
+        background: #fff;
+    }
 `;

@@ -6,6 +6,7 @@ import GlobalStyle from './utils/globals';
 import App from './App';
 import { Provider } from 'react-redux';
 import store from './store';
+import './custom';
 
 ReactDOM.render(
   <Provider store={store}>

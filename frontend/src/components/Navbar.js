@@ -18,10 +18,24 @@ const Wrapper = styled.div`
   background-color: transparent;
   height: 60px;
   z-index: 999;
+  animation: ${(props) =>
+    props.scrolled ? ' 0.5s ease 0s 1 normal none running animateNav;' : ''};
 
   @media ${(props) => props.theme.mediaQueries.large} {
     padding-left: 50px;
     padding-right: 50px;
+    position: ${(props) => (props.scrolled ? 'fixed' : '')};
+    top: ${(props) => (props.scrolled ? '0' : '')};
+    background: ${(props) => (props.scrolled ? 'white' : '')};
+  }
+
+  @keyframes animateNav {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
   }
 `;
 
@@ -114,6 +128,8 @@ const QtyNo = styled.div`
 
 const Navbar = () => {
   const [openSideNav, setOpenSideNav] = useState(false);
+  const [scroll, setScroll] = useState(false);
+
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
@@ -126,24 +142,22 @@ const Navbar = () => {
     document.body.style.overflow = 'visible';
   };
 
+  const [offset, setOffset] = useState(0);
+
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 20) {
-        document.querySelector('.navbar').classList.add('navbar-scrolled');
+    window.onscroll = () => {
+      setOffset(window.pageYOffset);
+      if (offset > 40) {
+        setScroll(true);
       } else {
-        document.querySelector('.navbar').classList.remove('navbar-scrolled');
+        setScroll(false);
       }
     };
-
-    document.addEventListener('scroll', handleScroll);
-    return () => {
-      document.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+  }, [offset]);
 
   return (
     <div>
-      <Wrapper className="navbar">
+      <Wrapper scrolled={scroll}>
         <MenuSvgWrapper onClick={openSlide} openSideNav={openSideNav}>
           <MenuSvg />
         </MenuSvgWrapper>
