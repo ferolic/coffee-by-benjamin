@@ -11,13 +11,14 @@ export default createGlobalStyle`
     }
 
     body {
-        min-height : 120vh;
         margin : 0;
         font-family : --apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         -webkit-font-smoothing : antialiased;
         -moz-osx-font-smoothing: grayscale;
         overflow-x : hidden;
         box-sizing : border-box;
+        width : 100%;
+        height : 100%;
     }
 
     html {
@@ -63,6 +64,12 @@ export default createGlobalStyle`
         box-sizing: content-box;
         height: 0;
         overflow: visible;
+    }
+
+    input[type="text"], input:focus, textarea,button:focus {
+        outline: none;
+        box-shadow:none !important;
+        border:1px solid #ccc !important;
     }
 
     .menu-mobile-svg, .close-sv {
@@ -261,5 +268,9 @@ export default createGlobalStyle`
         position : fixed;
         top : 0;
         background: #fff;
+    }
+
+    .minh-75 {
+        min-height: 75vh;
     }
 `;

@@ -25,7 +25,6 @@ const StyledSpan = styled.span`
   left: 0;
   height: 2px;
   margin-top: -30px;
-  position: absolute;
   width: 100%;
   background-color: rgb(250, 250, 250);
   display: block;
