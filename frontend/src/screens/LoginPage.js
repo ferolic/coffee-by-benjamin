@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { login } from '../actions/userActions';
 
 const Wrapper = styled.div`
   display: flex;
@@ -10,7 +12,26 @@ const Wrapper = styled.div`
   min-height: 100vh;
 `;
 
-const LoginPage = () => {
+const LoginPage = ({ location, history }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { loading, error, userInfo } = userLogin;
+  const redirect = location.search ? location.search.split('=')[1] : '/';
+
+  useEffect(() => {
+    if (userInfo) {
+      history.push(redirect);
+    }
+  }, [history, redirect, userInfo]);
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(login(email, password));
+  };
+
   return (
     <Wrapper>
       <div className="navbar-wrapper">
@@ -22,20 +43,32 @@ const LoginPage = () => {
             <Col md={7}>
               <div className="text-center mt-4">
                 <h4 className="mt-4"> SIGN IN </h4>
-                <p className="lead text-sm"> Please sign in to continue. </p>
+                <p className="lead"> Please sign in to continue. </p>
+                {loading && <p className="text-muted"> Loading... </p>}
+                {error && <p className="text-danger"> {error} </p>}
               </div>
-              <Form>
-                <Form.Group controlId="formBasicEmail">
+              <Form onSubmit={submitHandler} method="post">
+                <Form.Group controlId="email">
                   <Form.Label>Email address</Form.Label>
-                  <Form.Control type="email" placeholder="Enter email" />
+                  <Form.Control
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter email"
+                  />
                   <Form.Text className="text-muted">
                     Coffee By Benjamin never share your email with anyone else.
                   </Form.Text>
                 </Form.Group>
 
-                <Form.Group controlId="formBasicPassword">
+                <Form.Group controlId="password">
                   <Form.Label>Password</Form.Label>
-                  <Form.Control type="password" placeholder="Password" />
+                  <Form.Control
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Password"
+                  />
                 </Form.Group>
                 <Button className="bg-dark btn-sm" type="submit">
                   Login

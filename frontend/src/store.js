@@ -5,11 +5,13 @@ import {
   productListReducer,
   productDetailsReducer,
 } from './reducers/productReducers';
+import { userLoginReducer } from './reducers/userReducers';
 import { cartReducer } from './reducers/cartReducers';
 
 const reducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,
+  userLogin: userLoginReducer,
   cart: cartReducer,
 });
 
