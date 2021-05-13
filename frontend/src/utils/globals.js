@@ -66,7 +66,7 @@ export default createGlobalStyle`
         overflow: visible;
     }
 
-    input[type="text"], input:focus, textarea,button:focus {
+    input[type="text"], button , input:focus, textarea,button:focus {
         outline: none;
         box-shadow:none !important;
         border:1px solid #ccc !important;
