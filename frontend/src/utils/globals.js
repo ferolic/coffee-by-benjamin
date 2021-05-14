@@ -71,7 +71,7 @@ export default createGlobalStyle`
         box-shadow:none !important;
         border:1px solid #ccc !important;
     }
-
+    
     .menu-mobile-svg, .close-sv {
         cursor : pointer;
         fill : rgb(19, 19, 19);
@@ -289,5 +289,8 @@ export default createGlobalStyle`
     
     .checkout-link-icon {
         font-size : 12px;
+    }
+    .minh-30{
+        min-height: 60vh;
     }
 `;

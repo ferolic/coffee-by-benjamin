@@ -9,6 +9,7 @@ import LoginPage from './screens/LoginPage';
 import RegisterPage from './screens/RegisterPage';
 import UserProfilePage from './screens/UserProfilePage';
 import ShippingPage from './screens/ShippingPage';
+import PaymentPage from './screens/PaymentPage';
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
         <Route path="/register" component={RegisterPage} />
         <Route path="/profile" component={UserProfilePage} />
         <Route path="/shipping" component={ShippingPage} />
+        <Route path="/payment" component={PaymentPage} />
       </div>
     </Router>
   );
