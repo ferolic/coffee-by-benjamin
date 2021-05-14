@@ -43,7 +43,9 @@ const LoginPage = ({ location, history }) => {
             <Col md={7}>
               <div className="text-center mt-4">
                 <h4 className="mt-4"> SIGN IN </h4>
-                <Form.Text className="text-muted">Please sign in to continue.</Form.Text>
+                <Form.Text className="text-muted">
+                  Please sign in to continue.
+                </Form.Text>
                 {loading && <p className="text-muted"> Loading... </p>}
                 {error && <p className="text-danger"> {error} </p>}
               </div>

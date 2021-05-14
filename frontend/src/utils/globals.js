@@ -277,4 +277,17 @@ export default createGlobalStyle`
     .minh-75 {
         min-height: 75vh;
     }
+
+    .checkout-link {
+        color : ${(props) => props.theme.colors.textPrimary};
+        font-family : inherit;
+        font-size :18px;
+    }
+    .checkout-link:hover {
+        color : ${(props) => props.theme.colors.textPrimary};
+    }
+    
+    .checkout-link-icon {
+        font-size : 12px;
+    }
 `;

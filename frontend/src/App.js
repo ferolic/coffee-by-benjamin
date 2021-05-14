@@ -8,6 +8,7 @@ import CartPage from './screens/CartPage';
 import LoginPage from './screens/LoginPage';
 import RegisterPage from './screens/RegisterPage';
 import UserProfilePage from './screens/UserProfilePage';
+import ShippingPage from './screens/ShippingPage';
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/login" component={LoginPage} />
         <Route path="/register" component={RegisterPage} />
         <Route path="/profile" component={UserProfilePage} />
+        <Route path="/shipping" component={ShippingPage} />
       </div>
     </Router>
   );
