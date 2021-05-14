@@ -150,6 +150,10 @@ export default createGlobalStyle`
         color : ${(props) => props.theme.colors.linkSecondary};
     }
 
+    .link-secondary > a:hover{
+        color : ${(props) => props.theme.colors.linkSecondary};
+    }
+    
     .title {
         font-size: 32px;
         line-height: 46px;

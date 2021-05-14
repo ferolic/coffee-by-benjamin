@@ -58,6 +58,7 @@ const Nav = styled(Link)`
   margin-right: 16px;
   transition: color 0.3s ease 0s;
   line-height: 22px;
+  text-transform: capitalize;
 
   @media ${(props) => props.theme.mediaQueries.medium} {
     display: ${(props) => (props.hideonmobile ? 'none' : 'block')};
@@ -104,11 +105,16 @@ const SideNavbar = styled.div`
 
 const SideNav = styled(Link)`
   display: block;
-  font-size: 20px;
+  font-size: 17px;
   line-height: 16px;
   color: ${(props) => props.theme.colors.linkPrimary};
   font-weight: 500;
   margin-bottom: 16px;
+  text-transform: capitalize;
+
+  &:hover {
+    color: ${(props) => props.theme.colors.linkPrimary};
+  }
 `;
 
 const QtyNo = styled.div`
@@ -131,9 +137,13 @@ const QtyNo = styled.div`
 const Navbar = () => {
   const [openSideNav, setOpenSideNav] = useState(false);
   const [scroll, setScroll] = useState(false);
+  const [offset, setOffset] = useState(0);
 
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   const openSlide = () => {
     setOpenSideNav(true);
@@ -143,8 +153,6 @@ const Navbar = () => {
     setOpenSideNav(false);
     document.body.style.overflow = 'visible';
   };
-
-  const [offset, setOffset] = useState(0);
 
   useEffect(() => {
     window.onscroll = () => {
@@ -177,6 +185,11 @@ const Navbar = () => {
               <SideNav to="/shop" onClick={closeSlide}>
                 Shop
               </SideNav>
+              {userInfo && (
+                <SideNav to="/profile" onClick={closeSlide}>
+                  {userInfo.name}
+                </SideNav>
+              )}
             </div>
 
             <div className="link-secondary">
@@ -206,6 +219,11 @@ const Navbar = () => {
           <Nav to="/shop" hideonmobile="true">
             Shop
           </Nav>
+          {userInfo && (
+            <Nav to="/profile" hideonmobile="true">
+              {userInfo.name}
+            </Nav>
+          )}
           <Nav to="/cart" className="p-relative">
             <CartSvg />
             <QtyNo ItemInCart={cartItems.length > 0}>

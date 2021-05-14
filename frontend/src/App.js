@@ -7,6 +7,7 @@ import ProductPage from './screens/ProductPage';
 import CartPage from './screens/CartPage';
 import LoginPage from './screens/LoginPage';
 import RegisterPage from './screens/RegisterPage';
+import UserProfilePage from './screens/UserProfilePage';
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
         <Route path="/cart/:id?" component={CartPage} />
         <Route path="/login" component={LoginPage} />
         <Route path="/register" component={RegisterPage} />
+        <Route path="/profile" component={UserProfilePage} />
       </div>
     </Router>
   );
