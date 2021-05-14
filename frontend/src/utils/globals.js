@@ -293,4 +293,18 @@ export default createGlobalStyle`
     .minh-30{
         min-height: 60vh;
     }
+
+    .product-link , .product-link:hover {
+        color : #111;
+    }
+
+    .product-link:hover {
+        text-decoration : underline;
+    }
+
+    .product-link h3{
+        font-weight: 500;
+        font-size: 18px;
+        margin : 12px 0;
+    }
 `;
