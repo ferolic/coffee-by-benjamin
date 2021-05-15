@@ -11,6 +11,7 @@ import UserProfilePage from './screens/UserProfilePage';
 import ShippingPage from './screens/ShippingPage';
 import PaymentPage from './screens/PaymentPage';
 import PlaceOrderPage from './screens/PlaceOrderPage';
+import OrderPage from './screens/OrderPage';
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
         <Route path="/shipping" component={ShippingPage} />
         <Route path="/payment" component={PaymentPage} />
         <Route path="/placeorder" component={PlaceOrderPage} />
+        <Route path="/order/:id" component={OrderPage} />
       </div>
     </Router>
   );
