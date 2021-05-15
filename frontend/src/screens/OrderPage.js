@@ -31,12 +31,15 @@ const OrderTitle = styled.h2`
   }
 `;
 
-const OrderPage = ({ match }) => {
+const OrderPage = ({ match, history }) => {
   const orderId = match.params.id;
   const dispatch = useDispatch();
 
   const orderDetails = useSelector((state) => state.orderDetails);
   const { loading, order, error } = orderDetails;
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   if (!loading) {
     //   Calculate prices
@@ -50,8 +53,13 @@ const OrderPage = ({ match }) => {
   }
 
   useEffect(() => {
-    dispatch(getOrderDetails(orderId));
-  }, [dispatch, orderId]);
+    if (!userInfo) {
+      history.push('/login');
+    }
+    if (!order || order._id !== orderId) {
+      dispatch(getOrderDetails(orderId));
+    }
+  }, [dispatch, orderId, order]);
 
   return (
     <>
@@ -90,9 +98,19 @@ const OrderPage = ({ match }) => {
                           {order.shippingAddress.country}
                         </p>
                         {order.isDelivered ? (
-                          <p> {order.deliveredAt} </p>
+                          <p>
+                            Delivered At :
+                            <strong >
+                              {order.deliveredAt}
+                            </strong>
+                          </p>
                         ) : (
-                          <p> Not Delivered </p>
+                          <p>
+                            Status : {''}
+                            <strong>
+                              Not Delivered
+                            </strong>
+                          </p>
                         )}
                       </Card>
                     </Col>
@@ -102,9 +120,20 @@ const OrderPage = ({ match }) => {
                         <Title> Payment Method </Title>
                         <p>Method : {order.paymentMethod}</p>
                         {order.isPaid ? (
-                          <p> Paid on {order.paidAt} </p>
+                          <p>
+                            Paid on:
+                            <strong>
+                              {order.paidAt}
+                            </strong>
+                          </p>
                         ) : (
-                          <p> Not Paid </p>
+                          <p>
+                            Status :
+                            <strong>
+                              {' '}
+                              Not Paid{' '}
+                            </strong>
+                          </p>
                         )}
                       </Card>
                     </Col>
