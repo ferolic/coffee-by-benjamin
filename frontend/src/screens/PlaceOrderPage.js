@@ -1,20 +1,12 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import {
-  Button,
-  Row,
-  Col,
-  ListGroup,
-  Image,
-  Card,
-  Container,
-} from 'react-bootstrap';
+import { Button, Row, Col, Image, Card, Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import CheckoutSteps from '../components/CheckoutSteps';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { disconnect } from 'mongoose';
+import { createOrder } from '../actions/orderActions';
 
 const Wrapper = styled.div`
   display: flex;
@@ -58,6 +50,30 @@ const PlaceOrderScreen = ({ history }) => {
     Number(cart.shippingPrice) +
     Number(cart.taxPrice)
   ).toFixed(2);
+
+  const orderCreate = useSelector((state) => state.orderCreate);
+  const { loading, order, error, success } = orderCreate;
+
+  useEffect(() => {
+    if (success) {
+      history.push(`/order/${order._id}`);
+    }
+    // eslint-disable-next-line
+  }, [history, success]);
+
+  const placeOrderHandler = () => {
+    dispatch(
+      createOrder({
+        orderItems: cart.cartItems,
+        shippingAddress: cart.shippingAddress,
+        paymentMethod: cart.paymentMethod,
+        itemsPrice: cart.itemsPrice,
+        shippingPrice: cart.shippingPrice,
+        taxPrice: cart.taxPrice,
+        totalPrice: cart.totalPrice,
+      })
+    );
+  };
 
   return (
     <>
@@ -138,8 +154,20 @@ const PlaceOrderScreen = ({ history }) => {
                     <strong> $ {cart.totalPrice}</strong>
                   </Col>
                 </Row>
+                <Row>
+                  <Col>
+                    {error && <p> {error} </p>}
+                    {loading && <p> Loading... </p>}
+                  </Col>
+                </Row>
 
-                <Button className="btn bg-dark btn-block"> Place Order </Button>
+                <Button
+                  className="btn bg-dark btn-block"
+                  disabled={cart.cartItems === 0}
+                  onClick={placeOrderHandler}
+                >
+                  Place Order
+                </Button>
               </Card>
             </Col>
           </Row>

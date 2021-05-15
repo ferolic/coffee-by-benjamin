@@ -7,12 +7,11 @@ const orderSchema = mongoose.Schema(
       required: true,
       ref: 'User',
     },
-
     orderItems: [
       {
         name: { type: String, required: true },
         qty: { type: Number, required: true },
-        image: { type: String, required: true },
+        img: { type: String, required: true },
         price: { type: Number, required: true },
         product: {
           type: mongoose.Schema.Types.ObjectId,
@@ -27,11 +26,11 @@ const orderSchema = mongoose.Schema(
       postalCode: { type: String, required: true },
       country: { type: String, required: true },
     },
-    PaymentMethod: {
+    paymentMethod: {
       type: String,
       required: true,
     },
-    PaymentResult: {
+    paymentResult: {
       id: { type: String },
       status: { type: String },
       update_time: { type: String },
@@ -75,4 +74,5 @@ const orderSchema = mongoose.Schema(
 );
 
 const Order = mongoose.model('Order', orderSchema);
+
 export default Order;
