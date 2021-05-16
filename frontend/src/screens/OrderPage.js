@@ -3,7 +3,7 @@ import axios from 'axios';
 import { PayPalButton } from 'react-paypal-button-v2';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Container, Row, Col, Card, Image } from 'react-bootstrap';
+import { Container, Row, Col, Card, Image, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -246,6 +246,15 @@ const OrderPage = ({ match, history }) => {
                         )}
                       </>
                     )}
+
+                    {userInfo &&
+                      userInfo.isAdmin &&
+                      order.isPaid &&
+                      !order.isDelivered && (
+                        <Button className="btn-sm bg-dark">
+                          Mark As Delivered
+                        </Button>
+                      )}
                   </Card>
                 </Col>
               </Row>
