@@ -307,4 +307,13 @@ export default createGlobalStyle`
         font-size: 18px;
         margin : 12px 0;
     }
+
+    .link {
+        color : ${(props) => props.theme.colors.textPrimary};
+    }
+
+    .link:hover{
+        color : ${(props) => props.theme.colors.textPrimary};
+        text-decoration : underline;
+    }
 `;

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import Navbar from '../components/Navbar';
@@ -104,6 +105,13 @@ const RegisterPage = ({ location, history }) => {
                 <Button className="bg-dark btn-sm" type="submit">
                   Register
                 </Button>
+
+                <p className="pt-3">
+                  Existing user?{' '}
+                  <Link to="/login" className="link">
+                    Login
+                  </Link>
+                </p>
               </Form>
             </Col>
           </Row>

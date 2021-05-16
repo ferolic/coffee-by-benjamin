@@ -102,19 +102,19 @@ const Footer = () => {
       <div>
         <CopyRight> © 2021 - Coffee by Benjamin </CopyRight>
         <LinksWrapper>
-          <Link to="/faq">
+          <Link to="/">
             <LinkText> FAQ </LinkText>
           </Link>
 
-          <Link to="/privacy">
+          <Link to="/">
             <LinkText> Privacy Policy </LinkText>
           </Link>
 
-          <Link to="/support">
+          <Link to="/">
             <LinkText> Support </LinkText>
           </Link>
 
-          <Link to="/press-kit">
+          <Link to="/">
             <LinkText> Press Kit </LinkText>
           </Link>
         </LinksWrapper>

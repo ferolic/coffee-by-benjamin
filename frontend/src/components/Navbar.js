@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { MenuSvg, BrandingSvg, CartSvg, CloseSvg } from './Svg';
+import { logout } from '../actions/userActions';
 
 const Wrapper = styled.div`
   padding: 20px 25px;
@@ -145,6 +146,8 @@ const Navbar = () => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  const dispatch = useDispatch();
+
   const openSlide = () => {
     setOpenSideNav(true);
     document.body.style.overflow = 'hidden';
@@ -152,6 +155,16 @@ const Navbar = () => {
   const closeSlide = () => {
     setOpenSideNav(false);
     document.body.style.overflow = 'visible';
+  };
+
+  const logoutHandler = () => {
+    setOpenSideNav(false);
+    document.body.style.overflow = 'visible';
+    dispatch(logout());
+  };
+
+  const logoutHandler2 = () => {
+    dispatch(logout());
   };
 
   useEffect(() => {
@@ -190,19 +203,24 @@ const Navbar = () => {
                   {userInfo.name}
                 </SideNav>
               )}
+              {userInfo && (
+                <SideNav to="/profile" onClick={logoutHandler}>
+                  Logout
+                </SideNav>
+              )}
             </div>
 
             <div className="link-secondary">
-              <SideNav to="/support" onClick={closeSlide}>
+              <SideNav to="/" onClick={closeSlide}>
                 Support
               </SideNav>
-              <SideNav to="/faq" onClick={closeSlide}>
+              <SideNav to="/" onClick={closeSlide}>
                 FAQ
               </SideNav>
-              <SideNav to="/privacy" onClick={closeSlide}>
+              <SideNav to="/" onClick={closeSlide}>
                 Privacy Policy
               </SideNav>
-              <SideNav to="/press-kit" onClick={closeSlide}>
+              <SideNav to="/" onClick={closeSlide}>
                 Press Kit
               </SideNav>
             </div>
@@ -222,6 +240,12 @@ const Navbar = () => {
           {userInfo && (
             <Nav to="/profile" hideonmobile="true">
               {userInfo.name}
+            </Nav>
+          )}
+
+          {userInfo && (
+            <Nav to="/" onClick={logoutHandler2} hideonmobile="true">
+              Logout
             </Nav>
           )}
           <Nav to="/cart" className="p-relative">

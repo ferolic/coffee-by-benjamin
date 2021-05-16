@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Navbar from '../components/Navbar';
@@ -75,6 +76,12 @@ const LoginPage = ({ location, history }) => {
                 <Button className="bg-dark btn-sm" type="submit">
                   Login
                 </Button>
+                <p className="pt-3">
+                  New user?{' '}
+                  <Link to="/register" className="link">
+                    Register
+                  </Link>
+                </p>
               </Form>
             </Col>
           </Row>
