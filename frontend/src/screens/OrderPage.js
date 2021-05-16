@@ -1,11 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { PayPalButton } from 'react-paypal-button-v2';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Container, Row, Col, Button, Card, Image } from 'react-bootstrap';
+import { Container, Row, Col, Card, Image } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { getOrderDetails } from '../actions/orderActions';
+import { getOrderDetails, payOrder } from '../actions/orderActions';
+import { ORDER_PAY_RESET } from '../constants/orderConstants';
 
 const Wrapper = styled.div`
   display: flex;
@@ -23,20 +26,27 @@ const OrderTitle = styled.h2`
   font-size: 18px;
   color: ${(props) => props.theme.colors.textSecondary};
   text-transform: uppercase;
-  margin: 20px 0;
 
   @media ${(props) => props.theme.mediaQueries.large} {
     font-size: 24px;
-    margin: 22px 0;
   }
 `;
 
 const OrderPage = ({ match, history }) => {
   const orderId = match.params.id;
+  const [sdkReady, setSdkReady] = useState(false);
+
   const dispatch = useDispatch();
 
   const orderDetails = useSelector((state) => state.orderDetails);
   const { loading, order, error } = orderDetails;
+
+  const orderPay = useSelector((state) => state.orderPay);
+  const {
+    loading: loadingPay,
+    error: errorPay,
+    success: successPay,
+  } = orderPay;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -56,10 +66,35 @@ const OrderPage = ({ match, history }) => {
     if (!userInfo) {
       history.push('/login');
     }
-    if (!order || order._id !== orderId) {
+
+    const addPayPalScript = async () => {
+      const { data: clientId } = await axios.get('/api/config/paypal');
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
+      script.async = true;
+      script.onload = () => {
+        setSdkReady(true);
+      };
+      document.body.appendChild(script);
+    };
+
+    if (!order || order._id !== orderId || successPay) {
+      dispatch({ type: ORDER_PAY_RESET });
       dispatch(getOrderDetails(orderId));
+    } else if (!order.isPaid) {
+      if (!window.paypal) {
+        addPayPalScript();
+      } else {
+        setSdkReady(true);
+      }
     }
-  }, [dispatch, orderId, order]);
+  }, [dispatch, orderId, order, successPay, history, userInfo]);
+
+  const successPaymentHandler = (paymentResult) => {
+    console.log(paymentResult);
+    dispatch(payOrder(orderId, paymentResult));
+  };
 
   return (
     <>
@@ -75,6 +110,7 @@ const OrderPage = ({ match, history }) => {
           <div>
             <Container className="my-4">
               <OrderTitle> ORDER {order._id} </OrderTitle>
+              <p className="text-muted mb-4"> Your order has been placed </p>
               <Row>
                 <Col md={8}>
                   <Row>
@@ -97,20 +133,20 @@ const OrderPage = ({ match, history }) => {
                           {order.shippingAddress.postalCode},{' '}
                           {order.shippingAddress.country}
                         </p>
-                        {order.isDelivered ? (
-                          <p>
-                            Delivered At :
-                            <strong >
-                              {order.deliveredAt}
-                            </strong>
-                          </p>
-                        ) : (
-                          <p>
-                            Status : {''}
-                            <strong>
-                              Not Delivered
-                            </strong>
-                          </p>
+                        {order.isPaid && (
+                          <>
+                            {order.isDelivered ? (
+                              <p>
+                                Delivered At :
+                                <strong>{order.deliveredAt}</strong>
+                              </p>
+                            ) : (
+                              <p>
+                                Status : {''}
+                                <strong>Not Delivered</strong>
+                              </p>
+                            )}
+                          </>
                         )}
                       </Card>
                     </Col>
@@ -121,18 +157,12 @@ const OrderPage = ({ match, history }) => {
                         <p>Method : {order.paymentMethod}</p>
                         {order.isPaid ? (
                           <p>
-                            Paid on:
-                            <strong>
-                              {order.paidAt}
-                            </strong>
+                            Paid on: {''}
+                            <strong>{order.paidAt.substring(0, 10)}</strong>
                           </p>
                         ) : (
                           <p>
-                            Status :
-                            <strong>
-                              {' '}
-                              Not Paid{' '}
-                            </strong>
+                            Status :<strong> Not Paid </strong>
                           </p>
                         )}
                       </Card>
@@ -200,7 +230,22 @@ const OrderPage = ({ match, history }) => {
                       <Col> ${order.totalPrice} </Col>
                     </Row>
 
-                    <Button className="btn btn-block bg-dark"> Pay Now </Button>
+                    {!order.isPaid && (
+                      <>
+                        {loadingPay && <p> Loading... </p>}
+                        {errorPay && (
+                          <p className="text-danger"> {errorPay} </p>
+                        )}
+                        {!sdkReady ? (
+                          <p> Connecting paypal... </p>
+                        ) : (
+                          <PayPalButton
+                            amount={order.totalPrice}
+                            onSuccess={successPaymentHandler}
+                          />
+                        )}
+                      </>
+                    )}
                   </Card>
                 </Col>
               </Row>
