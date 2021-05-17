@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Meta from '../components/Meta';
 import styled from 'styled-components';
 import Navbar from '../components/Navbar';
 import Button from '../components/Button';
@@ -178,63 +179,76 @@ const ProductPage = ({ match, history }) => {
   return (
     <>
       {loading ? (
-        <p> loading </p>
+        <>
+          <Meta />
+          <p> Loading... </p>
+        </>
       ) : error ? (
-        <p> {error} </p>
+        <>
+          <Meta />
+          <p> {error} </p>
+        </>
       ) : (
-        <Wrapper>
-          <div className="navbar-wrapper">
-            <Navbar />
-          </div>
-          <ProductDetailsWrapper>
-            <ProductDetails>
-              <ProductDetailsLeft>
-                <ProductDesc>
-                  <ProductTitle> {product.name} </ProductTitle>
-                  <ProductPrice> € ${product.price} </ProductPrice>
-                </ProductDesc>
-                <ProductImageWrapper>
-                  <ProductImage src={product.img} alt={product.alt} />
-                </ProductImageWrapper>
-              </ProductDetailsLeft>
+        <>
+          <Meta
+            title={`${product.name} - Coffee By Benjamin`}
+            description={product.alt}
+            keywords={`Buy ${product.name}`}
+          />
+          <Wrapper>
+            <div className="navbar-wrapper">
+              <Navbar />
+            </div>
+            <ProductDetailsWrapper>
+              <ProductDetails>
+                <ProductDetailsLeft>
+                  <ProductDesc>
+                    <ProductTitle> {product.name} </ProductTitle>
+                    <ProductPrice> € ${product.price} </ProductPrice>
+                  </ProductDesc>
+                  <ProductImageWrapper>
+                    <ProductImage src={product.img} alt={product.alt} />
+                  </ProductImageWrapper>
+                </ProductDetailsLeft>
 
-              <ProductDetailsRight>
-                <ProductInfo>
-                  <Title> {product.name} </Title>
-                  <Price> € {product.price} </Price>
-                  <QtyContainer>
-                    <label className="fw-600">
-                      Quantity
-                      <QtyInput
-                        type="number"
-                        min="0"
-                        value={qty}
-                        onChange={(e) => setQty(e.target.value)}
-                      />
-                    </label>
-                  </QtyContainer>
+                <ProductDetailsRight>
+                  <ProductInfo>
+                    <Title> {product.name} </Title>
+                    <Price> € {product.price} </Price>
+                    <QtyContainer>
+                      <label className="fw-600">
+                        Quantity
+                        <QtyInput
+                          type="number"
+                          min="0"
+                          value={qty}
+                          onChange={(e) => setQty(e.target.value)}
+                        />
+                      </label>
+                    </QtyContainer>
 
-                  <ActionContainer>
-                    <span onClick={addToCartHandler}>
-                      <Button text="Add To Cart" />
-                    </span>
-                    <span onClick={addToCartHandler}>
-                      <Button text="Buy Now" dark />
-                    </span>
-                  </ActionContainer>
-                  <StyledHR />
-                  <AboutProduct>
-                    <div>
-                      <meta charSet="utf-8" />
-                      <span>{product.description}</span>
-                    </div>
-                  </AboutProduct>
-                </ProductInfo>
-              </ProductDetailsRight>
-            </ProductDetails>
-          </ProductDetailsWrapper>
-          <Footer />
-        </Wrapper>
+                    <ActionContainer>
+                      <span onClick={addToCartHandler}>
+                        <Button text="Add To Cart" />
+                      </span>
+                      <span onClick={addToCartHandler}>
+                        <Button text="Buy Now" dark />
+                      </span>
+                    </ActionContainer>
+                    <StyledHR />
+                    <AboutProduct>
+                      <div>
+                        <meta charSet="utf-8" />
+                        <span>{product.description}</span>
+                      </div>
+                    </AboutProduct>
+                  </ProductInfo>
+                </ProductDetailsRight>
+              </ProductDetails>
+            </ProductDetailsWrapper>
+            <Footer />
+          </Wrapper>
+        </>
       )}
     </>
   );

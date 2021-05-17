@@ -13,11 +13,13 @@ import PaymentPage from './screens/PaymentPage';
 import PlaceOrderPage from './screens/PlaceOrderPage';
 import OrderPage from './screens/OrderPage';
 import OrderListPage from './screens/OrderListPage';
+import Meta from './components/Meta';
 
 const App = () => {
   return (
     <Router>
       <div>
+        <Meta />
         <Route path="/" exact component={HomePage} />
         <Route path="/about" component={AboutPage} />
         <Route path="/shop" component={ShoppingPage} />

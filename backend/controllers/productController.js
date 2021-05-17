@@ -23,4 +23,16 @@ const getProductById = asyncHandler(async (req, res) => {
   }
 });
 
-export { getProducts, getProductById };
+const getProductByName = asyncHandler(async (req, res) => {
+  const { name } = req.body;
+  const product = await Product.findOne({ name });
+
+  if (product) {
+    res.json(product);
+  } else {
+    res.status(404);
+    throw new Error('Product not found');
+  }
+});
+
+export { getProducts, getProductById, getProductByName };
