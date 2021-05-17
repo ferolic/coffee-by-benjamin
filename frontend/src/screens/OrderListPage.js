@@ -89,7 +89,7 @@ const OrderListPage = ({ history }) => {
 
                           {order.isDelivered ? (
                             <Col md={2} className="mb-2">
-                              Status : <br />
+                              Delivered On : <br />
                               <span className="text-success font-weight-bold">
                                 {order.deliveredAt.substring(0, 10)}
                               </span>

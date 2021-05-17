@@ -7,8 +7,15 @@ import { Container, Row, Col, Card, Image, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { getOrderDetails, payOrder } from '../actions/orderActions';
-import { ORDER_PAY_RESET } from '../constants/orderConstants';
+import {
+  getOrderDetails,
+  payOrder,
+  deliverOrder,
+} from '../actions/orderActions';
+import {
+  ORDER_PAY_RESET,
+  ORDER_DELIVER_RESET,
+} from '../constants/orderConstants';
 
 const Wrapper = styled.div`
   display: flex;
@@ -48,6 +55,13 @@ const OrderPage = ({ match, history }) => {
     success: successPay,
   } = orderPay;
 
+  const orderDeliver = useSelector((state) => state.orderDeliver);
+  const {
+    loading: loadingDeliver,
+    error: errorDeliver,
+    success: successDeliver,
+  } = orderDeliver;
+
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
@@ -79,8 +93,9 @@ const OrderPage = ({ match, history }) => {
       document.body.appendChild(script);
     };
 
-    if (!order || order._id !== orderId || successPay) {
+    if (!order || order._id !== orderId || successPay || successDeliver) {
       dispatch({ type: ORDER_PAY_RESET });
+      dispatch({ type: ORDER_DELIVER_RESET });
       dispatch(getOrderDetails(orderId));
     } else if (!order.isPaid) {
       if (!window.paypal) {
@@ -89,11 +104,15 @@ const OrderPage = ({ match, history }) => {
         setSdkReady(true);
       }
     }
-  }, [dispatch, orderId, order, successPay, history, userInfo]);
+  }, [dispatch, history, order, orderId, userInfo, successPay, successDeliver]);
 
   const successPaymentHandler = (paymentResult) => {
     console.log(paymentResult);
     dispatch(payOrder(orderId, paymentResult));
+  };
+
+  const deliverHandler = () => {
+    dispatch(deliverOrder(order));
   };
 
   return (
@@ -246,12 +265,16 @@ const OrderPage = ({ match, history }) => {
                         )}
                       </>
                     )}
-
+                    {loadingDeliver && <p> Loading... </p>}
+                    {errorDeliver && <p>{errorDeliver} </p>}
                     {userInfo &&
                       userInfo.isAdmin &&
                       order.isPaid &&
                       !order.isDelivered && (
-                        <Button className="btn-sm bg-dark">
+                        <Button
+                          onClick={deliverHandler}
+                          className="btn-sm bg-dark"
+                        >
                           Mark As Delivered
                         </Button>
                       )}
